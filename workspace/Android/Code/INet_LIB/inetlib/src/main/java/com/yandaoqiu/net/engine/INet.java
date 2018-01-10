@@ -1,8 +1,11 @@
 package com.yandaoqiu.net.engine;
 
+import android.content.Context;
+
 import com.yandaoqiu.net.inter.INetConfig;
 import com.yandaoqiu.net.inter.INetInter;
 import com.yandaoqiu.net.inter.INetListener;
+import com.yandaoqiu.net.inter.INetStateChangeListener;
 import com.yandaoqiu.net.projo.INetTask;
 
 import java.util.ArrayList;
@@ -35,6 +38,11 @@ public class INet implements INetInter{
             iNet = new INet();
         }
         return iNet;
+    }
+
+    @Override
+    public void init(Context context, INetStateChangeListener listener) {
+
     }
 
     /**
