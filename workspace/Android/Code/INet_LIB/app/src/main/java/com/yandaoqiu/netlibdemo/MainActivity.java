@@ -1,8 +1,9 @@
-package com.yandaoqiu.iwork;
+package com.yandaoqiu.netlibdemo;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+
 
 import com.yandaoqiu.net.engine.INet;
 import com.yandaoqiu.net.inter.INetConfig;
@@ -15,16 +16,15 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.FormBody;
 
-
-public class MainActivity extends AppCompatActivity implements INetListener{
-
+public class MainActivity extends AppCompatActivity implements INetListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //重要
         INet.getInstatce().registerListener(this);
+        //建议放在Application 中
         INet.getInstatce().config(new INetConfig() {
             /**
              * 基础URL，适合单一服务器请求，如果多服务器，不要设置该配置
@@ -61,26 +61,23 @@ public class MainActivity extends AppCompatActivity implements INetListener{
                     public void accept(MovieSubject movieSubject) throws Exception {
                         Log.e("Service",movieSubject.count+"");
                     }
-                });;
+                });
     }
-
-
-
-
 
     @Override
     public void end(INetResponse response) {
 
         Log.e("INetResponse",response.tag+"  "+response.taskid+" -------- "+response.xml);
-       if ("Get_Top250".equals(response.tag)){
+        if ("Get_Top250".equals(response.tag)){
             MovieSubject movieSubject = (MovieSubject)response.json;
-           Log.e("movieSubject",movieSubject.count+"");
-       }
+            Log.e("movieSubject",movieSubject.count+"");
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        //重要
         INet.getInstatce().unRegisterListner(this);
     }
 }

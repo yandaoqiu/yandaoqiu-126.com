@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/INet_LIB.iml" filepath="$PROJECT_DIR$/INet_LIB.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inetlib/inetlib.iml" filepath="$PROJECT_DIR$/inetlib/inetlib.iml" />
+    </modules>
+  </component>
+</project>
