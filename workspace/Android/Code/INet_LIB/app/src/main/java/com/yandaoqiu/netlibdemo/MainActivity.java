@@ -8,6 +8,8 @@ import android.util.Log;
 import com.yandaoqiu.net.engine.INet;
 import com.yandaoqiu.net.inter.INetConfig;
 import com.yandaoqiu.net.inter.INetListener;
+import com.yandaoqiu.net.inter.INetStateChangeListener;
+import com.yandaoqiu.net.projo.INET_STATE;
 import com.yandaoqiu.net.projo.INetResponse;
 import com.yandaoqiu.net.projo.INetTask;
 
@@ -16,7 +18,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.FormBody;
 
-public class MainActivity extends AppCompatActivity implements INetListener {
+public class MainActivity extends AppCompatActivity implements INetListener ,INetStateChangeListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements INetListener {
         //重要
         INet.getInstatce().registerListener(this);
         //建议放在Application 中
+        INet.getInstatce().init(getApplicationContext(),this);
         INet.getInstatce().config(new INetConfig() {
             /**
              * 基础URL，适合单一服务器请求，如果多服务器，不要设置该配置
@@ -66,8 +69,11 @@ public class MainActivity extends AppCompatActivity implements INetListener {
 
     @Override
     public void end(INetResponse response) {
+        Log.e("INetResponse",response.tag+"  "+response.taskid+" -------- "+response.xml +" "+response.erroMsg);
+        if (response.isError){
 
-        Log.e("INetResponse",response.tag+"  "+response.taskid+" -------- "+response.xml);
+            return;
+        }
         if ("Get_Top250".equals(response.tag)){
             MovieSubject movieSubject = (MovieSubject)response.json;
             Log.e("movieSubject",movieSubject.count+"");
@@ -79,5 +85,10 @@ public class MainActivity extends AppCompatActivity implements INetListener {
         super.onDestroy();
         //重要
         INet.getInstatce().unRegisterListner(this);
+    }
+
+    @Override
+    public void onNetStateChange(INET_STATE state) {
+        Log.e("onNetStateChange",state+"");
     }
 }

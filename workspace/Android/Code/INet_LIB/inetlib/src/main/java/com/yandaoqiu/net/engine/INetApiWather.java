@@ -8,6 +8,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.yandaoqiu.net.inter.INetConfig;
 import com.yandaoqiu.net.inter.INetListener;
+import com.yandaoqiu.net.projo.INET_STATE;
 import com.yandaoqiu.net.projo.INetResponse;
 import com.yandaoqiu.net.projo.INetTask;
 
@@ -45,6 +46,8 @@ public class INetApiWather implements Runnable{
     private Handler mHandler = new Handler(Looper.getMainLooper());
     private INetApi mApi;
     private INetConfig mConfig;
+
+    protected static final int CODE_OFFINE = 99999;
 
     public INetApiWather(INetApi api,INetConfig config, ArrayList<INetListener> listeners){
         this.mApi = api;
@@ -129,7 +132,6 @@ public class INetApiWather implements Runnable{
         int size = mTaskID_R.size();
         if (size == 0)return;
         synchronized (mRequestTaskQueue){
-            //TODO 判断当前网络，无网络直接返回
             long taskid = mTaskID_R.get(mTaskID_R.size() - 1);
             final INetTask requestTask = mRequestTaskQueue.get(taskid);
             mTaskID_R.remove(taskid);
@@ -143,47 +145,56 @@ public class INetApiWather implements Runnable{
                 public void subscribe(ObservableEmitter<INetResponse> e)  {
                     INetResponse iNetResponse = new INetResponse();
                     iNetResponse.taskid = requestTask.getTaskid();
-                    try {
-                        requestTask.setState(INetTask.INET_PROGRESS.PROGRESS_REQUESTING);
-                        Request.Builder reuqestBuilder =  new Request.Builder();
-                        String url = requestTask.getUrl();
-                        if (!TextUtils.isEmpty(mConfig.baseURL())){
-                            url = mConfig.baseURL()+url;
-                        }
-                        reuqestBuilder.url(url);
-                        reuqestBuilder.method(requestTask.getRequestType(),requestTask.getBody());
-                        if (requestTask.getHeaders() != null) {
-                            reuqestBuilder.headers(requestTask.getHeaders());
-                        }
-
-                        Request request = reuqestBuilder.build();
-
-                        requestTask.okHttpCall = mApi.getClient().newCall(request);
-                        Response response = requestTask.okHttpCall.execute();
-
-                        if (mConfig.debug())
-                            iNetResponse.response = response;
-                        if (response.code() != 200){
-                            iNetResponse.isError = true;
-                        }
-                        iNetResponse.tag = requestTask.tag;
-                        iNetResponse.code = response.code();
-                        iNetResponse.erroMsg = response.message();
-                        if (requestTask.getJsonObj() != null) {
-                            Gson gson = new Gson();
-                            iNetResponse.json = gson.fromJson(response.body().string(), requestTask.getJsonObj());
-                        }else {
-                            iNetResponse.xml = response.body().string();
-                        }
-                    }catch (Exception ex){
-                        ex.printStackTrace();
+                    //TODO 判断当前网络，无网络直接返回
+                    if (INet.getInstatce().getNetState() == INET_STATE.OFFLINE){
                         iNetResponse.isError = true;
-                        if (ex!=null)
-                            iNetResponse.erroMsg = ex.getMessage();
-                        else
-                            iNetResponse.erroMsg = "请求异常";
-                    }finally {
+                        iNetResponse.tag = requestTask.tag;
+                        iNetResponse.code = CODE_OFFINE;
+                        iNetResponse.erroMsg = "无网络";
                         e.onNext(iNetResponse);
+                    }else {
+                        try {
+                            requestTask.setState(INetTask.INET_PROGRESS.PROGRESS_REQUESTING);
+                            Request.Builder reuqestBuilder =  new Request.Builder();
+                            String url = requestTask.getUrl();
+                            if (!TextUtils.isEmpty(mConfig.baseURL())){
+                                url = mConfig.baseURL()+url;
+                            }
+                            reuqestBuilder.url(url);
+                            reuqestBuilder.method(requestTask.getRequestType(),requestTask.getBody());
+                            if (requestTask.getHeaders() != null) {
+                                reuqestBuilder.headers(requestTask.getHeaders());
+                            }
+
+                            Request request = reuqestBuilder.build();
+
+                            requestTask.okHttpCall = mApi.getClient().newCall(request);
+                            Response response = requestTask.okHttpCall.execute();
+
+                            if (mConfig.debug())
+                                iNetResponse.response = response;
+                            if (response.code() != 200){
+                                iNetResponse.isError = true;
+                            }
+                            iNetResponse.tag = requestTask.tag;
+                            iNetResponse.code = response.code();
+                            iNetResponse.erroMsg = response.message();
+                            if (requestTask.getJsonObj() != null) {
+                                Gson gson = new Gson();
+                                iNetResponse.json = gson.fromJson(response.body().string(), requestTask.getJsonObj());
+                            }else {
+                                iNetResponse.xml = response.body().string();
+                            }
+                        }catch (Exception ex){
+                            ex.printStackTrace();
+                            iNetResponse.isError = true;
+                            if (ex!=null)
+                                iNetResponse.erroMsg = ex.getMessage();
+                            else
+                                iNetResponse.erroMsg = "请求异常";
+                        }finally {
+                            e.onNext(iNetResponse);
+                        }
                     }
                 }
             });

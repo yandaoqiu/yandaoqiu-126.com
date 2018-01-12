@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.yandaoqiu.net.inter.INetConfig;
+import com.yandaoqiu.net.projo.INET_STATE;
 
 import java.io.File;
 import java.io.IOException;

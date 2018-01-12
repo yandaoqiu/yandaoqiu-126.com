@@ -7,9 +7,7 @@ package com.yandaoqiu.net.projo;
 public enum INET_STATE {
         OFFLINE,//离线
         ONLINE,//在线
-        LINE_2G,//2G
-        LINE_3G,//3G
-        LINE_4G,//4G
+        LINE_MOBILE,//手机网络
         LINE_WIFI,//WIFI
         LINE_OTHER,//其它
 
