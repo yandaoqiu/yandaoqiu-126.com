@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ydq.ihelp.dao.db.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.ydq.ihelp.model.db.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="level_job" property="levelJob" jdbcType="INTEGER" />
+    <result column="level_worker" property="levelWorker" jdbcType="INTEGER" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="card_number" property="cardNumber" jdbcType="VARCHAR" />
+    <result column="thumb" property="thumb" jdbcType="VARCHAR" />
+    <result column="hd" property="hd" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="user_status" property="user_status" jdbcType="INTEGER" />
+    
+  </resultMap>
+  
+ 
+  <sql id="Base_Column_List" >
+    id, user_id, tel, level_job, level_worker, device_id, token, gender, age, card_number, 
+    thumb, hd, city, nick_name, type,user_status
+  </sql>
+  
+  
+  
+  <select id="selectUserByUseroid" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userid,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectUserListByStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_status = #{user_status,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ydq.ihelp.model.db.User" >
+    insert into user (id, user_id, tel, 
+      level_job, level_worker, device_id, 
+      token, gender, age, 
+      card_number, thumb, hd, 
+      city, nick_name, type
+      )
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{levelJob,jdbcType=INTEGER}, #{levelWorker,jdbcType=INTEGER}, #{deviceId,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+      #{cardNumber,jdbcType=VARCHAR}, #{thumb,jdbcType=VARCHAR}, #{hd,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ydq.ihelp.model.db.User" >
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="levelJob != null" >
+        level_job,
+      </if>
+      <if test="levelWorker != null" >
+        level_worker,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="cardNumber != null" >
+        card_number,
+      </if>
+      <if test="thumb != null" >
+        thumb,
+      </if>
+      <if test="hd != null" >
+        hd,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="levelJob != null" >
+        #{levelJob,jdbcType=INTEGER},
+      </if>
+      <if test="levelWorker != null" >
+        #{levelWorker,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="cardNumber != null" >
+        #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null" >
+        #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="hd != null" >
+        #{hd,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ydq.ihelp.model.db.User" >
+    update user
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="levelJob != null" >
+        level_job = #{levelJob,jdbcType=INTEGER},
+      </if>
+      <if test="levelWorker != null" >
+        level_worker = #{levelWorker,jdbcType=INTEGER},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="cardNumber != null" >
+        card_number = #{cardNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="thumb != null" >
+        thumb = #{thumb,jdbcType=VARCHAR},
+      </if>
+      <if test="hd != null" >
+        hd = #{hd,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ydq.ihelp.model.db.User" >
+    update user
+    set user_id = #{userId,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      level_job = #{levelJob,jdbcType=INTEGER},
+      level_worker = #{levelWorker,jdbcType=INTEGER},
+      device_id = #{deviceId,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      card_number = #{cardNumber,jdbcType=VARCHAR},
+      thumb = #{thumb,jdbcType=VARCHAR},
+      hd = #{hd,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

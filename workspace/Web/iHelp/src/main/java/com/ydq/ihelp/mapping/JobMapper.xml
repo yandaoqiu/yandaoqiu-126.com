@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ydq.ihelp.dao.db.JobMapper" >
+  <resultMap id="BaseResultMap" type="com.ydq.ihelp.model.db.Job" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="subc" property="subc" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="VARCHAR" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="date_time" property="dateTime" jdbcType="VARCHAR" />
+    <result column="need_people" property="needPeople" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="eff_day" property="effDay" jdbcType="INTEGER" />
+    <result column="age_down" property="ageDown" jdbcType="INTEGER" />
+    <result column="age_up" property="ageUp" jdbcType="INTEGER" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="reson" property="reson" jdbcType="VARCHAR" />
+    <result column="pic" property="pic" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, job_id, title, subc, location, status, address, price, unit, type, date_time, 
+    need_people, level, eff_day, age_down, age_up, gender, reson, pic
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from job
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from job
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from job
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ydq.ihelp.model.db.Job" >
+    insert into job (id, job_id, title, 
+      subc, location, status, 
+      address, price, unit, 
+      type, date_time, need_people, 
+      level, eff_day, age_down, 
+      age_up, gender, reson, 
+      pic)
+    values (#{id,jdbcType=INTEGER}, #{jobId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{subc,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, #{unit,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{dateTime,jdbcType=VARCHAR}, #{needPeople,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{effDay,jdbcType=INTEGER}, #{ageDown,jdbcType=INTEGER}, 
+      #{ageUp,jdbcType=INTEGER}, #{gender,jdbcType=INTEGER}, #{reson,jdbcType=VARCHAR}, 
+      #{pic,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ydq.ihelp.model.db.Job" >
+    insert into job
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jobId != null" >
+        job_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="subc != null" >
+        subc,
+      </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="unit != null" >
+        unit,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="dateTime != null" >
+        date_time,
+      </if>
+      <if test="needPeople != null" >
+        need_people,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="effDay != null" >
+        eff_day,
+      </if>
+      <if test="ageDown != null" >
+        age_down,
+      </if>
+      <if test="ageUp != null" >
+        age_up,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="reson != null" >
+        reson,
+      </if>
+      <if test="pic != null" >
+        pic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null" >
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subc != null" >
+        #{subc,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="dateTime != null" >
+        #{dateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="needPeople != null" >
+        #{needPeople,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="effDay != null" >
+        #{effDay,jdbcType=INTEGER},
+      </if>
+      <if test="ageDown != null" >
+        #{ageDown,jdbcType=INTEGER},
+      </if>
+      <if test="ageUp != null" >
+        #{ageUp,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="reson != null" >
+        #{reson,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        #{pic,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ydq.ihelp.model.db.Job" >
+    update job
+    <set >
+      <if test="jobId != null" >
+        job_id = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subc != null" >
+        subc = #{subc,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null" >
+        unit = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="dateTime != null" >
+        date_time = #{dateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="needPeople != null" >
+        need_people = #{needPeople,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="effDay != null" >
+        eff_day = #{effDay,jdbcType=INTEGER},
+      </if>
+      <if test="ageDown != null" >
+        age_down = #{ageDown,jdbcType=INTEGER},
+      </if>
+      <if test="ageUp != null" >
+        age_up = #{ageUp,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="reson != null" >
+        reson = #{reson,jdbcType=VARCHAR},
+      </if>
+      <if test="pic != null" >
+        pic = #{pic,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ydq.ihelp.model.db.Job" >
+    update job
+    set job_id = #{jobId,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      subc = #{subc,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      unit = #{unit,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      date_time = #{dateTime,jdbcType=VARCHAR},
+      need_people = #{needPeople,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER},
+      eff_day = #{effDay,jdbcType=INTEGER},
+      age_down = #{ageDown,jdbcType=INTEGER},
+      age_up = #{ageUp,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=INTEGER},
+      reson = #{reson,jdbcType=VARCHAR},
+      pic = #{pic,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
