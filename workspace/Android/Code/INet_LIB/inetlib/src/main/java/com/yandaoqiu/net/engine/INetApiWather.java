@@ -157,7 +157,7 @@ public class INetApiWather implements Runnable{
                             requestTask.setState(INetTask.INET_PROGRESS.PROGRESS_REQUESTING);
                             Request.Builder reuqestBuilder =  new Request.Builder();
                             String url = requestTask.getUrl();
-                            if (!TextUtils.isEmpty(mConfig.baseURL())){
+                            if (!TextUtils.isEmpty(mConfig.baseURL()) && !requestTask.isIgnoreBaseURL()){
                                 url = mConfig.baseURL()+url;
                             }
                             reuqestBuilder.url(url);

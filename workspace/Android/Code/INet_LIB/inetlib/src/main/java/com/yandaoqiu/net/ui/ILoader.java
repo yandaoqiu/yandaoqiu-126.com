@@ -2,6 +2,8 @@ package com.yandaoqiu.net.ui;
 
 import android.view.View;
 
+import com.yandaoqiu.net.ui.projo.IImageTask;
+
 /**
  * Created by yandaoqiu on 2018/1/12.
  */
@@ -39,5 +41,11 @@ public interface ILoader {
      * @param level
      */
     void onTrimMemory(int level);
+
+    /**
+     * 加载图片
+     * @param task
+     */
+    void load(IImageTask task);
 
 }

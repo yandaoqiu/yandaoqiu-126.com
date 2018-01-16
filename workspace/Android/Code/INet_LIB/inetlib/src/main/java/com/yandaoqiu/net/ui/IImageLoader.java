@@ -8,9 +8,7 @@ package com.yandaoqiu.net.ui;
 
 public class IImageLoader {
 
-public IImageLoader(){
 
-}
 
 
 

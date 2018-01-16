@@ -25,6 +25,7 @@ public final class INetTask {
         this.body = builder.body;
         this.headers = builder.headers;
         this.tag = builder.tag;
+        this.ignoreBaseURL = builder.ignoreBaseURL;
     }
     //请求等级，默认高优先
     public enum INET_LEVEL{
@@ -63,6 +64,10 @@ public final class INetTask {
 
 
 
+    //该Task忽略BaseUrl
+    private boolean ignoreBaseURL;
+
+
 
 
 
@@ -74,7 +79,9 @@ public final class INetTask {
 
 
 
-
+    public boolean isIgnoreBaseURL() {
+        return ignoreBaseURL;
+    }
     public RequestBody getBody() {
         return body;
     }
@@ -145,6 +152,12 @@ public final class INetTask {
         RequestBody body;
         Headers headers;
         Object tag;
+        boolean ignoreBaseURL;
+
+        public Builder ignoreBaseURL(boolean ignore){
+            this.ignoreBaseURL = ignore;
+            return this;
+        }
 
         public Builder tag(Object tag){
             this.tag = tag;
