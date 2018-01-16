@@ -1,7 +1,5 @@
 package com.yandaoqiu.net.projo;
 
-import com.google.gson.Gson;
-import com.yandaoqiu.net.engine.INet;
 
 import okhttp3.Response;
 
