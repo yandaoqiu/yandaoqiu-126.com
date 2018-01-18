@@ -3,13 +3,11 @@ package com.yandaoqiu.netlibdemo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
 
 import com.yandaoqiu.net.engine.INet;
-import com.yandaoqiu.net.inter.INetConfig;
 import com.yandaoqiu.net.inter.INetListener;
-import com.yandaoqiu.net.inter.INetStateChangeListener;
-import com.yandaoqiu.net.projo.INET_STATE;
 import com.yandaoqiu.net.projo.INetResponse;
 import com.yandaoqiu.net.projo.INetTask;
 
@@ -18,28 +16,16 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.FormBody;
 
-public class MainActivity extends AppCompatActivity implements INetListener ,INetStateChangeListener{
+public class MainActivity extends AppCompatActivity implements INetListener{
 
+    private ImageView imageview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //重要
         INet.getInstatce().registerListener(this);
-        //建议放在Application 中
-        INet.getInstatce().init(getApplicationContext(),this);
-        INet.getInstatce().config(new INetConfig() {
-            /**
-             * 基础URL，适合单一服务器请求，如果多服务器，不要设置该配置
-             *
-             * @return
-             */
-            @Override
-            public String baseURL() {
-                return "https://api.douban.com/v2/movie/";
-            }
-        });
-
 
         /**********模式一*************/
         //tag 标签建议用自增长0x1001 这样来管理，区分每一次请求，也可以为null,url可以是缩写，也可以全URL，但是config注意去除，requestType默认POST
@@ -65,6 +51,10 @@ public class MainActivity extends AppCompatActivity implements INetListener ,INe
                         Log.e("Service",movieSubject.count+"");
                     }
                 });
+
+
+        imageview = (ImageView) findViewById(R.id.imageview);
+
     }
 
     @Override
@@ -87,8 +77,5 @@ public class MainActivity extends AppCompatActivity implements INetListener ,INe
         INet.getInstatce().unRegisterListner(this);
     }
 
-    @Override
-    public void onNetStateChange(INET_STATE state) {
-        Log.e("onNetStateChange",state+"");
-    }
+
 }
