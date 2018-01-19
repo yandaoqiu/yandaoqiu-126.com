@@ -160,6 +160,7 @@ public class ILoaderImpl implements ILoader {
     public void request(final IImageTask task) {
         RequestManager requestManager = Glide.with(task.getContext());
         DrawableTypeRequest request = initDrawableTypeRequest(task, requestManager);
+
         if (task.isAsBitmap()){
             SimpleTarget target = new SimpleTarget<Bitmap>() {
                 @Override
@@ -167,9 +168,7 @@ public class ILoaderImpl implements ILoader {
                     task.getBitmapListener().onSuccess(bitmap);
                 }
             };
-
             setShapeModeAndBlur(task, request);
-
             if (task.getDiskCacheStrategy() != null) {
                 request.diskCacheStrategy(task.getDiskCacheStrategy());
             }
@@ -195,6 +194,7 @@ public class ILoaderImpl implements ILoader {
                     request.fitCenter();
                     break;
             }
+            setShapeModeAndBlur(task, request);
             //设置缩略图
             if (task.getThumbnail() != 0) {
                 request.thumbnail(task.getThumbnail());
