@@ -3,9 +3,14 @@ package com.ydq.ihelp.cache;
 
 import java.util.Map;
 
+import com.ydq.ihelp.job.BlackUserJob;
+import com.ydq.ihelp.job.JobManager;
 import com.ydq.ihelp.model.db.User;
+import com.ydq.ihelp.pojo.black.BlackUser;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -15,16 +20,17 @@ import java.util.List;
 public class BlackUserCache
 {
     private static BlackUserCache pc = null;
-    private Map<String,User> personInfos;
+    private Map<String,BlackUser> personInfos;
     private BlackUserCache()
     {
-        personInfos = new HashMap<String,User>();
+        personInfos = new HashMap<String,BlackUser>();
     }
     public synchronized static BlackUserCache getInstance()
     {
         if (pc == null)
         {
             pc = new BlackUserCache();
+            JobManager.getInstance().addJob(new BlackUserJob());
         }
         return pc;
     }
@@ -34,7 +40,9 @@ public class BlackUserCache
      */
     public long getBlackUserSize()
     {
-    	return personInfos.size();
+    	synchronized (personInfos){
+    		return personInfos.size();
+    	}
     }
     
     /**
@@ -42,9 +50,11 @@ public class BlackUserCache
      * @param tel
      * @return
      */
-    public User isBlack(String userid)
+    public BlackUser isBlack(String userid)
     {
-        return personInfos.get(userid);
+    	synchronized (personInfos){
+    		return personInfos.get(userid);
+    	}
     }
 
     /**
@@ -54,7 +64,9 @@ public class BlackUserCache
     public void put(User user)
     {
         if (user == null)return;
-        personInfos.put(user.getUserId() ,user);
+        synchronized (personInfos){
+        	personInfos.put(user.getUserId() ,new BlackUser(user));
+        }
     }
 
     /**
@@ -63,6 +75,28 @@ public class BlackUserCache
     public void remove(String userid)
     {
     	 if (userid == null)return;
-    	personInfos.remove(userid);
+    	 synchronized (personInfos) {
+    		 personInfos.remove(userid);
+		}
     }
+    
+    /**
+     * 刷新 频率1s
+     */
+    public void refush(){
+    	synchronized (personInfos){
+    		List<String> needRemoveUser = new ArrayList<String>();
+    		Iterator it = personInfos.entrySet().iterator();
+    		while (it.hasNext()) {
+    			String key = (String) it.next();
+    			BlackUser blackUser = personInfos.get(key);
+    			blackUser.blackTime -= 1000;
+    			if(blackUser.blackTime <= 0){
+    				needRemoveUser.add(key);
+    			}
+			}
+    		personInfos.remove(needRemoveUser);
+    	}
+    }
+    
 }

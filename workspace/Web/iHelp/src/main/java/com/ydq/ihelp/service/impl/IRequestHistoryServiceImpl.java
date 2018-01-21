@@ -12,6 +12,7 @@ import com.ydq.ihelp.dao.db.RequestHistoryMapper;
 import com.ydq.ihelp.model.db.RequestHistory;
 import com.ydq.ihelp.model.db.User;
 import com.ydq.ihelp.pojo.SelfRequest;
+import com.ydq.ihelp.pojo.black.BlackUser;
 import com.ydq.ihelp.service.IRequestHistoryService;
 import com.ydq.ihelp.service.IUserService;
 @Service("mRequestHistoryService")
@@ -39,7 +40,9 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 			}
 		}
 		
-		return BlackUserCache.getInstance().isBlack(request.getUserid());
+		BlackUser blackUser = BlackUserCache.getInstance().isBlack(request.getUserid());
+		if(blackUser == null)return null;
+		return blackUser.user;
 	}
 
 	/**
@@ -47,16 +50,20 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 	 * @param record
 	 * @return
 	 */
-	private boolean validateRequest(RequestHistory record){
+	private boolean validateRequest(String userid,RequestHistory record){
 		//查询请求记录表，看下上次请求时间，ip
 		//规则就是 连续1分钟内访问60次以上就视为恶意攻击，15分钟后再次允许访问，一天
 		//查询上一次的调用时间
-		RequestHistory history = mRequestHistoryMapper.selectHistory(record.getIp());
-		if(history == null)return true;
 		//检查 最近的1分钟内的请求，如果数量大于60 则封ip 15分钟
-		
+		long count = mRequestHistoryMapper.selectHistoryCountBy1Min(record.getIp());
+		if(count > 60){
+			//添加到黑名单
+			BlackUserCache.getInstance().put(mUserService.getUser(userid));
+			return false;
+		}
 		return true;
 	}
+	
 	@Override
 	public int validateRequest(SelfRequest request) {
 		
@@ -72,7 +79,7 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 			record.setToken(request.getToken());
 			record.setUserId(request.getUserid());
 			record.setAction(request.getAction());
-			if(validateRequest(record)){
+			if(validateRequest(request.getUserid(),record)){
 				//插入表,继续执行
 				this.mRequestHistoryMapper.insert(record);
 				//请求正常

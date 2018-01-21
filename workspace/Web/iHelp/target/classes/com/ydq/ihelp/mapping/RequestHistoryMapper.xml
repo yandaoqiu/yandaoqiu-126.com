@@ -13,6 +13,17 @@
   <sql id="Base_Column_List" >
     id, ip, date_time, user_id, device_id, action, token
   </sql>
+  
+   <select id="selectHistoryCountBy1Min" resultType="long" parameterType="java.lang.String" >
+    SELECT count(*) FROM request_history WHERE date_time > DATE_SUB(NOW(),INTERVAL 1 minute) AND ip = #{ip,jdbcType=VARCHAR};
+  </select>
+  <select id="selectHistory" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from request_history
+    where ip = #{ip,jdbcType=VARCHAR}
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

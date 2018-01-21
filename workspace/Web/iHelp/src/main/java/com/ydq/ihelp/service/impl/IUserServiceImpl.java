@@ -54,5 +54,11 @@ public class IUserServiceImpl implements IUserService {
 		return mUserMapper.selectUserByUseroid(request.getUserid());
 	}
 
+	@Override
+	public User getUser(String userid) {
+		
+		return mUserMapper.selectUserByUseroid(userid);
+	}
+
 
 }

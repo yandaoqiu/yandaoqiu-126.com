@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import com.alibaba.druid.util.StringUtils;
 import com.ydq.ihelp.common.Code;
 import com.ydq.ihelp.common.CommonEnum;
+import com.ydq.ihelp.job.JobManager;
 import com.ydq.ihelp.pojo.BaseResponse;
 import com.ydq.ihelp.pojo.SelfRequest;
 import com.ydq.ihelp.service.IRequestHistoryService;
@@ -23,6 +24,9 @@ public class BaseController {
 	 * @return
 	 */
 	protected BaseResponse validateRequest(SelfRequest request) throws Exception{
+		if(!JobManager.getInstance().isRuning()){
+			JobManager.getInstance().begin();
+		}
 		BaseResponse response = new BaseResponse();
 		logger.debug(request.toString());
 		//必输参数不全

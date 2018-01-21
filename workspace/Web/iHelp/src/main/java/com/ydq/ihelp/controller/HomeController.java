@@ -42,7 +42,7 @@ public class HomeController {
 		List<Job> jobs = (List<Job>) mJobService.getItem(null);
 		mJobService.getItemDetail(null);
 		model.addAttribute("serverTime", formattedDate );
-		model.addAttribute("jobs", jobs.get(0).getTitle() );
+		
 		return "home";
 	}
 	

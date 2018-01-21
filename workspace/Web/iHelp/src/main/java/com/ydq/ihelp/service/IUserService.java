@@ -42,4 +42,11 @@ public interface IUserService
 	 */
 	User getUser(SelfRequest request);
 	
+	/**
+	 * 获取用户
+	 * @param String userid
+	 * @return
+	 */
+	User getUser(String userid);
+	
 }

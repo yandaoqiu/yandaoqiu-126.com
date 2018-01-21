@@ -30,7 +30,7 @@ public class SelfRequest {
 		setUserid(userid);
 		setToken(token);
 		setDeviceid(deviceid);
-		setAction(clz.getName()+"->"+Thread.currentThread().getStackTrace()[1].getMethodName());
+		setAction(clz.getName().replace(clz.getPackage().getName(), "")+"->"+new Throwable().getStackTrace()[1].getMethodName());
 	}
 	
 	public String getAction() {
