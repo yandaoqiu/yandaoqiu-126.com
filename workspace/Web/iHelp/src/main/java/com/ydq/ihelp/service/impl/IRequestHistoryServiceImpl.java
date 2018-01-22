@@ -2,6 +2,8 @@ package com.ydq.ihelp.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,7 @@ import com.ydq.ihelp.service.IRequestHistoryService;
 import com.ydq.ihelp.service.IUserService;
 @Service("mRequestHistoryService")
 public class IRequestHistoryServiceImpl implements IRequestHistoryService {
-
+	protected  Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private IUserService mUserService;
 	
@@ -51,6 +53,7 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 	 * @return
 	 */
 	private boolean validateRequest(String userid,RequestHistory record){
+		logger.info(userid + " "+record.getDateTime());
 		//查询请求记录表，看下上次请求时间，ip
 		//规则就是 连续1分钟内访问60次以上就视为恶意攻击，15分钟后再次允许访问，一天
 		//查询上一次的调用时间
@@ -59,6 +62,8 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 		if(count > 60){
 			//添加到黑名单
 			BlackUserCache.getInstance().put(mUserService.getUser(userid));
+			//更新用户表 设置成黑名单
+			mUserService.up
 			return false;
 		}
 		return true;

@@ -157,7 +157,15 @@ public class ILoaderImpl implements ILoader {
      * @param task
      */
     @Override
-    public void request(final IImageTask task) {
+    public void request(IImageTask task) {
+        //增加队列 上限，防止滑动CPU报表
+
+    }
+
+    private void doJob(){
+
+        final IImageTask task = null;
+
         RequestManager requestManager = Glide.with(task.getContext());
         DrawableTypeRequest request = initDrawableTypeRequest(task, requestManager);
 

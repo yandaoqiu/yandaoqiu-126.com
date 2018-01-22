@@ -1,8 +1,9 @@
 package com.ydq.ihelp.service.impl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class BaseService {
 
-	protected  Logger logger = Logger.getLogger(getClass());
+	protected  Logger logger = LoggerFactory.getLogger(getClass());
 }

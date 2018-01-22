@@ -43,6 +43,9 @@
     where user_status = #{user_status,jdbcType=INTEGER}
   </select>
   
+  
+  
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

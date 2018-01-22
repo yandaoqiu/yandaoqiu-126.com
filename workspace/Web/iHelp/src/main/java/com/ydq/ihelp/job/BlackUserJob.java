@@ -7,7 +7,7 @@ public class BlackUserJob extends Job {
 	public BlackUserJob(){
 		this.count = -1;
 		this.jobName = "黑名单刷新Job";
-		this.time = 3600;//1分钟
+		this.time = 60;//1分钟
 	}
 	@Override
 	public void runJob() {

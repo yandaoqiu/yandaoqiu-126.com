@@ -3,8 +3,11 @@ package com.ydq.ihelp.job;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobManager extends Thread{
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class JobManager extends Thread{
+	protected  Logger logger = LoggerFactory.getLogger(getClass());
 	private boolean isRunning = false;
 	
 	private static JobManager jobManager = null;
@@ -41,18 +44,19 @@ public class JobManager extends Thread{
 	public void run() {
 		super.run();
 		try {
-			synchronized (jobs) {
 				List<Job> needRemoveJobs = new ArrayList();
 				while (isRunning) {
 					for (Job job : jobs) {
 						job.runCount ++;
-						if(job.runCount >= job.count){
+						if(job.runCount >= job.time){
 							job.runJob();
+							logger.info("RunJob Job "+job.jobName);
 							//重至
 							job.runCount = 0;
 							//停止 job
 							if(job.count != -1){
 								needRemoveJobs.add(job);
+								logger.info("Remove Job "+job.jobName);
 							}
 						}
 					}
@@ -62,7 +66,6 @@ public class JobManager extends Thread{
 					
 					sleep(1000);
 				}
-			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -2,6 +2,10 @@ package com.ydq.ihelp.cache;
 
 
 import java.util.Map;
+import java.util.Map.Entry;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ydq.ihelp.job.BlackUserJob;
 import com.ydq.ihelp.job.JobManager;
@@ -19,6 +23,7 @@ import java.util.List;
  */
 public class BlackUserCache
 {
+	protected  Logger logger = LoggerFactory.getLogger(getClass());
     private static BlackUserCache pc = null;
     private Map<String,BlackUser> personInfos;
     private BlackUserCache()
@@ -65,6 +70,7 @@ public class BlackUserCache
     {
         if (user == null)return;
         synchronized (personInfos){
+        	logger.info("Add Black User -> "+user.getUserId() +" "+user.getNickName());
         	personInfos.put(user.getUserId() ,new BlackUser(user));
         }
     }
@@ -88,14 +94,17 @@ public class BlackUserCache
     		List<String> needRemoveUser = new ArrayList<String>();
     		Iterator it = personInfos.entrySet().iterator();
     		while (it.hasNext()) {
-    			String key = (String) it.next();
-    			BlackUser blackUser = personInfos.get(key);
-    			blackUser.blackTime -= 1000;
+    			Map.Entry entry  =  (Entry) it.next();
+    			BlackUser blackUser = personInfos.get(entry.getKey());
+    			blackUser.blackTime -= 1;
     			if(blackUser.blackTime <= 0){
-    				needRemoveUser.add(key);
+    				needRemoveUser.add((String)entry.getKey());
+    				logger.info("Romve BlackUser ->"+blackUser.user.getUserId() +" "+blackUser.user.getNickName());
     			}
 			}
-    		personInfos.remove(needRemoveUser);
+    		for (String key : needRemoveUser) {
+    			personInfos.remove(key);
+			}
     	}
     }
     

@@ -1,6 +1,7 @@
 package com.ydq.ihelp.controller;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -14,7 +15,7 @@ import com.ydq.ihelp.service.IRequestHistoryService;
 
 @Controller
 public class BaseController {
-	protected  Logger logger = Logger.getLogger(getClass());
+	protected  Logger logger = LoggerFactory.getLogger(getClass());
 	@Autowired
 	private IRequestHistoryService mRequestHistoryService;
 	
@@ -25,10 +26,22 @@ public class BaseController {
 	 */
 	protected BaseResponse validateRequest(SelfRequest request) throws Exception{
 		if(!JobManager.getInstance().isRuning()){
+			logger.info("JobManager Start");
 			JobManager.getInstance().begin();
 		}
+//		new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				try {
+//					Thread.sleep(10000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}).start();
 		BaseResponse response = new BaseResponse();
-		logger.debug(request.toString());
+		logger.info(request.toString());
 		//必输参数不全
 		if(StringUtils.isEmpty(request.getUserid()) || StringUtils.isEmpty(request.getIp()) || StringUtils.isEmpty(request.getToken()))
 		{

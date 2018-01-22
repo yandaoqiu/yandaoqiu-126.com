@@ -49,4 +49,11 @@ public interface IUserService
 	 */
 	User getUser(String userid);
 	
+	/**
+	 * 更新用户状态
+	 * @param user_status
+	 * @return
+	 */
+	int updateUserStatus(int user_status);
+	
 }
