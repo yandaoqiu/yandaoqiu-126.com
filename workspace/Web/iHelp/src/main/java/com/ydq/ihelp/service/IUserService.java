@@ -54,6 +54,6 @@ public interface IUserService
 	 * @param user_status
 	 * @return
 	 */
-	int updateUserStatus(int user_status);
+	int updateUserStatus(String user_id,int user_status);
 	
 }

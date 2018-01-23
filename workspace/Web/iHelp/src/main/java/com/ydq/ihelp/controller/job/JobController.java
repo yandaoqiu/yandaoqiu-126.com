@@ -1,5 +1,4 @@
-package com.ydq.ihelp.controller.user;
-
+package com.ydq.ihelp.controller.job;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,28 +12,23 @@ import com.ydq.ihelp.common.Code;
 import com.ydq.ihelp.controller.BaseController;
 import com.ydq.ihelp.pojo.BaseResponse;
 import com.ydq.ihelp.pojo.SelfRequest;
-import com.ydq.ihelp.pojo.user.UserResponse;
-import com.ydq.ihelp.service.IUserService;
-
+import com.ydq.ihelp.service.IJobService;
 
 @Controller
-public class UserController extends BaseController
-{
-	@Autowired
-	private IUserService mUserService;
+public class JobController extends BaseController {
 	
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@Autowired
+	private IJobService mJobService;
+	@RequestMapping(value = "getJobItem", method = RequestMethod.GET)
 	@ResponseBody
-	public BaseResponse requestLogin(HttpServletRequest request,String userid,String token) throws Exception
+	public BaseResponse requestLogin(HttpServletRequest request,String location,int start,int length) throws Exception
 	{
 		SelfRequest SR = new SelfRequest(request,getClass());
 		BaseResponse response = this.validateRequest(SR);
 		
 		if(response.getCode() != Code.C_SUCCESS)return response;
 		
-		UserResponse userResponse =  mUserService.login(SR);
 		
-		return userResponse;
+		return mJobService.getItem(SR, location, start, length);
 	}
-
 }

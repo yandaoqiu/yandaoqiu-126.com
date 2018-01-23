@@ -38,7 +38,18 @@ public class Job{
     private String reson;
 
     private String pic;
+    
+    private int job_range;
+    
+    public Integer getJob_range() {
+        return job_range;
+    }
 
+    public void setJob_range(Integer job_range) {
+        this.job_range = job_range;
+    }
+
+    
     public Integer getId() {
         return id;
     }

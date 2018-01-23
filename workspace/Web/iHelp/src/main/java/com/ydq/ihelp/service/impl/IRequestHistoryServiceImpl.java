@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.ydq.ihelp.cache.BlackUserCache;
 import com.ydq.ihelp.common.CommonEnum;
-import com.ydq.ihelp.common.PublicUtil;
 import com.ydq.ihelp.dao.db.RequestHistoryMapper;
 import com.ydq.ihelp.model.db.RequestHistory;
 import com.ydq.ihelp.model.db.User;
@@ -30,7 +29,7 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 	
 	@Override
 	public User getBlackUser(SelfRequest request) {
-		
+		BlackUserCache.getInstance().setUserService(mUserService);
 		//查黑名单缓存表,如果缓存为空则拉取一遍数据库。  //TODO 大数据量 隐患：黑名单用户太多,一次加载内存会挂
 		long blackSize = BlackUserCache.getInstance().getBlackUserSize();
 		if(blackSize == 0){
@@ -63,7 +62,7 @@ public class IRequestHistoryServiceImpl implements IRequestHistoryService {
 			//添加到黑名单
 			BlackUserCache.getInstance().put(mUserService.getUser(userid));
 			//更新用户表 设置成黑名单
-			mUserService.up
+			mUserService.updateUserStatus(userid, CommonEnum.ENUM_USER_STATUS.BLACK);
 			return false;
 		}
 		return true;

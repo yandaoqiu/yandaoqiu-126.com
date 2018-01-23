@@ -1,7 +1,7 @@
 package com.ydq.ihelp.service;
 
-import java.util.List;
 
+import com.ydq.ihelp.pojo.BaseResponse;
 import com.ydq.ihelp.pojo.SelfRequest;
 
 /**
@@ -16,7 +16,7 @@ public interface IItemService {
 	 * @param request �����������
 	 * @return
 	 */
-	List<?> getItem(SelfRequest request);
+	BaseResponse getItem(SelfRequest request,String location,int start,int length);
 	
 	
 	/**
@@ -24,7 +24,7 @@ public interface IItemService {
 	 * @param request
 	 * @return
 	 */
-	<T> T getItemDetail(SelfRequest request);
+	<T> T getItemDetail(SelfRequest request,String itemid);
 	
 
 	/**

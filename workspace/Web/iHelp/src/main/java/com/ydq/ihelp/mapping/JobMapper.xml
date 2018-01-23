@@ -21,10 +21,12 @@
     <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="reson" property="reson" jdbcType="VARCHAR" />
     <result column="pic" property="pic" jdbcType="VARCHAR" />
+    <result column="job_range" property="job_range" jdbcType="INTEGER" />
+    
   </resultMap>
   <sql id="Base_Column_List" >
     id, job_id, title, subc, location, status, address, price, unit, type, date_time, 
-    need_people, level, eff_day, age_down, age_up, gender, reson, pic
+    need_people, level, eff_day, age_down, age_up, gender, reson, pic,job_range
   </sql>
   <select id="selectAll" resultMap="BaseResultMap" >
     select 

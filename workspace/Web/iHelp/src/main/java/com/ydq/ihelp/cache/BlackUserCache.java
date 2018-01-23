@@ -6,11 +6,14 @@ import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ydq.ihelp.common.CommonEnum;
 import com.ydq.ihelp.job.BlackUserJob;
 import com.ydq.ihelp.job.JobManager;
 import com.ydq.ihelp.model.db.User;
 import com.ydq.ihelp.pojo.black.BlackUser;
+import com.ydq.ihelp.service.IUserService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +29,8 @@ public class BlackUserCache
 	protected  Logger logger = LoggerFactory.getLogger(getClass());
     private static BlackUserCache pc = null;
     private Map<String,BlackUser> personInfos;
+    
+	private IUserService mUserService;
     private BlackUserCache()
     {
         personInfos = new HashMap<String,BlackUser>();
@@ -38,6 +43,10 @@ public class BlackUserCache
             JobManager.getInstance().addJob(new BlackUserJob());
         }
         return pc;
+    }
+    
+    public void setUserService(IUserService service) {
+    	this.mUserService = service;
     }
     
     /**
@@ -96,9 +105,10 @@ public class BlackUserCache
     		while (it.hasNext()) {
     			Map.Entry entry  =  (Entry) it.next();
     			BlackUser blackUser = personInfos.get(entry.getKey());
-    			blackUser.blackTime -= 1;
+    			blackUser.blackTime -= BlackUserJob.time;
     			if(blackUser.blackTime <= 0){
     				needRemoveUser.add((String)entry.getKey());
+    				mUserService.updateUserStatus(blackUser.user.getUserId(), CommonEnum.ENUM_USER_STATUS.NORMAL);
     				logger.info("Romve BlackUser ->"+blackUser.user.getUserId() +" "+blackUser.user.getNickName());
     			}
 			}

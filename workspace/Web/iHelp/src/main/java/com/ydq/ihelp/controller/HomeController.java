@@ -39,8 +39,8 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		
-		List<Job> jobs = (List<Job>) mJobService.getItem(null);
-		mJobService.getItemDetail(null);
+//		List<Job> jobs = (List<Job>) mJobService.getItem(null);
+//		mJobService.getItemDetail(null);
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "home";

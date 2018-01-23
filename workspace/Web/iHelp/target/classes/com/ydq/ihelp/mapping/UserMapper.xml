@@ -44,6 +44,16 @@
   </select>
   
   
+  <update id="updateUserStatus" >
+    update user
+    <set >
+      <if test="user_status != null" >
+        user_status = #{user_status,jdbcType=INTEGER},
+      </if>
+      
+    </set>
+    where user_id = #{user_id,jdbcType=VARCHAR}
+  </update>
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

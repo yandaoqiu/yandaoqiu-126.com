@@ -60,5 +60,11 @@ public class IUserServiceImpl implements IUserService {
 		return mUserMapper.selectUserByUseroid(userid);
 	}
 
+	@Override
+	public int updateUserStatus(String user_id, int user_status) {
+		
+		return mUserMapper.updateUserStatus(user_id, user_status);
+	}
+
 
 }
