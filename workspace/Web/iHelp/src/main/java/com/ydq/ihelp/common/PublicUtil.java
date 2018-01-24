@@ -2,6 +2,7 @@ package com.ydq.ihelp.common;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 
@@ -78,7 +79,7 @@ public class PublicUtil {
         return ip;
     }
 
-    public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
+    public static <T> T readJsonFromUrl(String url,Class<T> t) throws IOException, JSONException {
        InputStream is = null;
        BufferedReader rd = null;
        try {
@@ -86,8 +87,7 @@ public class PublicUtil {
            rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
            String jsonText = readAll(rd);
            
-           JSONObject json = JSONObject.parseObject(jsonText);
-           return json;
+           return JSON.parseObject(jsonText,t);
        } finally {
            //关闭输入流
     	   rd.close();
