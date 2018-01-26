@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/BaseModule/BaseModule.iml" filepath="$PROJECT_DIR$/BaseModule/BaseModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/IWork.iml" filepath="$PROJECT_DIR$/IWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/inetlib/inetlib.iml" filepath="$PROJECT_DIR$/inetlib/inetlib.iml" />

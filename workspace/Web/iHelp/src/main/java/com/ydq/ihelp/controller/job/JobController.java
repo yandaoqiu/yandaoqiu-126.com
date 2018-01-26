@@ -21,7 +21,7 @@ public class JobController extends BaseController {
 	private IJobService mJobService;
 	@RequestMapping(value = "getJobItem", method = RequestMethod.GET)
 	@ResponseBody
-	public BaseResponse requestLogin(HttpServletRequest request,String location,int start,int length) throws Exception
+	public BaseResponse requestLogin(HttpServletRequest request,String city,String start,int length) throws Exception
 	{
 		SelfRequest SR = new SelfRequest(request,getClass());
 		BaseResponse response = this.validateRequest(SR);
@@ -29,6 +29,6 @@ public class JobController extends BaseController {
 		if(response.getCode() != Code.C_SUCCESS)return response;
 		
 		
-		return mJobService.getItem(SR, location, start, length);
+		return mJobService.getItem(SR, city, start, length);
 	}
 }

@@ -30,8 +30,8 @@ public class IJobServiceImpl extends BaseService implements IJobService {
 	}
 
 	@Override
-	public JobResponse getItem(SelfRequest request,String location,int from,int length) {
-		List<Job> jobs = getUserRangeJobs(request, location, from, length);
+	public JobResponse getItem(SelfRequest request,String city,String fromId,int length) {
+		List<Job> jobs = getUserRangeJobs(request, city, fromId, length);
 		JobResponse response = new JobResponse();
 		response.setCoentent(jobs);
 		return response;
@@ -53,35 +53,35 @@ public class IJobServiceImpl extends BaseService implements IJobService {
 	/**
 	 * 获取范围内的数据
 	 * @param request
-	 * @param location 坐标值";"
+	 * @param city 
 	 * @param from
 	 * @param length
 	 * @return
 	 */
-	private List<Job> getUserRangeJobs(SelfRequest request,String location,int from,int length){
+	private List<Job> getUserRangeJobs(SelfRequest request,String city,String fromId,int length){
 		//1.根据当前所在坐标，如果为空 用IP定位，拉取用户 范围内的job
 		//2.排序 置顶
 		//TODO 3.结合大数据 
-		//判断location 字段 是否合法
-		if(!StringUtils.isEmpty(location)) {
-			String gps[] = location.split(";");
-			if(gps.length == 2) {
-				//
-			}
-		}else {
-			MapIP mapip = null;
-			try {
-				mapip = PublicUtil.readJsonFromUrl(Address.GD_IP,MapIP.class);
-				logger.info("getUserRangeJobs-> "+mapip.city+ " "+mapip.info);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	
+		if(!StringUtils.isEmpty(city)) {
 			
-			if(mapip != null && "10000".equals(mapip.infocode)) {
-				String province = mapip.province;
-				String city = mapip.city;
-			}
+		}else {
+			//查询城市为空 查询全国
 		}
+//			MapIP mapip = null;
+//			try {
+//				mapip = PublicUtil.readJsonFromUrl(Address.GD_IP,MapIP.class);
+//				logger.info("getUserRangeJobs-> "+mapip.city+ " "+mapip.info);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			
+//			if(mapip != null && "10000".equals(mapip.infocode)) {
+//				String province = mapip.province;
+//				String city = mapip.city;
+//				
+//			}
+		
 		
 		
 		List<Job> list = new ArrayList<Job>();

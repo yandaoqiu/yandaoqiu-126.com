@@ -18,7 +18,6 @@ import okhttp3.FormBody;
 
 public class MainActivity extends AppCompatActivity implements INetListener{
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

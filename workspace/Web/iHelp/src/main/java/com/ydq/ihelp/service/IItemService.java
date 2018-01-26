@@ -16,7 +16,7 @@ public interface IItemService {
 	 * @param request �����������
 	 * @return
 	 */
-	BaseResponse getItem(SelfRequest request,String location,int start,int length);
+	BaseResponse getItem(SelfRequest request,String city,String start,int length);
 	
 	
 	/**
