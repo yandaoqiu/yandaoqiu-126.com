@@ -2,9 +2,13 @@ package com.yandaoqiu.iwork.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.yandaoqiu.iwork.R;
 import com.yandaoqiu.iwork.projo.HomePageItem;
@@ -22,24 +26,46 @@ public class HomePageTopBar extends RelativeLayout implements View.OnClickListen
     private ArrayList<Button> titleItemViews = new ArrayList<>();
     private int currentPostion = 0;
     private int oldPostion = 0;
-    public HomePageTopBar(Context context) {
+
+    private Context mContext;
+    private LinearLayout mGropView;
+    private LayoutInflater layoutInflater;
+
+    private HomePageTopBar(Context context) {
         super(context);
     }
 
     public HomePageTopBar(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.mContext = context;
+        initView();
+    }
+
+    private void initView() {
+        this.layoutInflater = LayoutInflater.from(mContext);
+        View view = layoutInflater.inflate(R.layout.view_home_page_bar,null);
+        mGropView = (LinearLayout) view.findViewById(R.id.homepage_bar_center);
     }
 
     public HomePageTopBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initView();
     }
 
     /**
      * 初始化
      * @param homePageItems
      */
-    public void init(ArrayList<HomePageItem> homePageItems){
+    public void setHomePageItems(ArrayList<HomePageItem> homePageItems){
         this.homePageItems = homePageItems;
+        for (int i = 0 ; i < homePageItems.size() ; i++){
+            HomePageItem homePageItem = homePageItems.get(i);
+            Button titleItem = new Button(mContext);
+            titleItem.setBackgroundColor(0);
+            titleItem.setText(homePageItem.getTitle());
+            titleItem.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+            mGropView.addView(titleItem);
+        }
     }
 
     @Override
