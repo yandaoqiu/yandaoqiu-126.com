@@ -1,1 +1,1 @@
-include ':app', ':inetlib', ':BaseModule'
+include ':app', ':BaseModule', ':inetlib', ':iWork_Job', ':iWork_Worker', ':iWork_Sale'

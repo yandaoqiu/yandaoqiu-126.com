@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.yandaoqiu.iwork.view.HomePageTopBar
+        android:id="@+id/homepage_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+   >
+
+        <ImageButton
+            android:id="@+id/homepage_bar_left"
+            android:onClick="leftOnclick:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src=""
+            android:layout_alignParentLeft="true"
+        />
+        <ImageButton
+            android:id="@+id/homepage_bar_right"
+            android:onClick="rightOnclick:"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src=""
+            android:layout_alignParentRight="true"
+            />
+        <LinearLayout
+            android:id="@+id/homepage_bar_center"
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="@color/color_817b74"
+            android:layout_toLeftOf="@id/homepage_bar_right"
+            android:layout_toRightOf="@id/homepage_bar_left"
+            android:gravity="center"
+            android:orientation="horizontal"
+            />
+
+
+   </com.yandaoqiu.iwork.view.HomePageTopBar>
+</LinearLayout>

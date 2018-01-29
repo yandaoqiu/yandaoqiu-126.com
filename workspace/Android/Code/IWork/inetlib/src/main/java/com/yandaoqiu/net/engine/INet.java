@@ -1,8 +1,14 @@
 package com.yandaoqiu.net.engine;
 
+import android.content.Context;
+import android.util.Log;
+
+import com.yandaoqiu.net.engine.receiver.NetworkConnectChangedReceiver;
 import com.yandaoqiu.net.inter.INetConfig;
 import com.yandaoqiu.net.inter.INetInter;
 import com.yandaoqiu.net.inter.INetListener;
+import com.yandaoqiu.net.inter.INetStateChangeListener;
+import com.yandaoqiu.net.projo.INET_STATE;
 import com.yandaoqiu.net.projo.INetTask;
 
 import java.util.ArrayList;
@@ -16,6 +22,9 @@ import okhttp3.Interceptor;
 
 public class INet implements INetInter{
 
+    private Context mContext;
+    //网络状态监听
+    private INetStateChangeListener mListener;
     //监听
     private ArrayList<INetListener> mListeners = new ArrayList<>();
 
@@ -24,10 +33,9 @@ public class INet implements INetInter{
     private INetApi mNetApi = null;
 
     private static INet iNet;
+
+    private INET_STATE netState;
     private INet(){
-        //初始化Api
-        mNetApi = new INetApi(mConfig);
-        mWather = new INetApiWather(mNetApi,mConfig,mListeners);
     }
 
     public static synchronized INet getInstatce(){
@@ -37,6 +45,16 @@ public class INet implements INetInter{
         return iNet;
     }
 
+    @Override
+    public void init(Context context, INetStateChangeListener listener) {
+        this.mContext = context;
+        this.mListener = listener;
+        //初始化Api
+        mNetApi = new INetApi(mConfig);
+        mWather = new INetApiWather(mNetApi,mConfig,mListeners);
+        netState = NetworkConnectChangedReceiver.getNetWorkState(mContext);
+    }
+
     /**
      * 异步请求
      *
@@ -44,6 +62,9 @@ public class INet implements INetInter{
      */
     @Override
     public long net(INetTask task) {
+        if (mNetApi == null || mWather == null){
+            throw new RuntimeException("INet未初始化，请先调用init初始化!");
+        }
         mWather.net(task);
         mWather.start();
         return task.getTaskid();
@@ -196,6 +217,19 @@ public class INet implements INetInter{
         mNetApi.addNetworkInterceptor(interceptor);
     }
 
+
+    public void updateNetState(INET_STATE state){
+        if (this.netState == state)return;
+        Log.e("updateNetState",state+"");
+        this.netState = state;
+        if (mListener !=null){
+            mListener.onNetStateChange(state);
+        }
+    }
+
+    public INET_STATE getNetState(){
+        return netState;
+    }
     /**
      * Retrofit 模式的支持
      *

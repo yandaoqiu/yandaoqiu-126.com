@@ -1,12 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.didi.virtualapk.host'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "27.0.1"
     defaultConfig {
         applicationId "com.yandaoqiu.iwork"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -27,9 +28,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
-    //网络框架
-    compile project(':inetlib')
+
     //插件化
     compile 'com.didi.virtualapk:core:0.9.1'
+    //基础依赖
     compile project(':BaseModule')
 }

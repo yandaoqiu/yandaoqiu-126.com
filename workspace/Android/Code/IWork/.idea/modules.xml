@@ -5,6 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/BaseModule/BaseModule.iml" filepath="$PROJECT_DIR$/BaseModule/BaseModule.iml" />
       <module fileurl="file://$PROJECT_DIR$/IWork.iml" filepath="$PROJECT_DIR$/IWork.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iWork_Job/iWork_Job.iml" filepath="$PROJECT_DIR$/iWork_Job/iWork_Job.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iWork_Sale/iWork_Sale.iml" filepath="$PROJECT_DIR$/iWork_Sale/iWork_Sale.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iWork_Worker/iWork_Worker.iml" filepath="$PROJECT_DIR$/iWork_Worker/iWork_Worker.iml" />
       <module fileurl="file://$PROJECT_DIR$/inetlib/inetlib.iml" filepath="$PROJECT_DIR$/inetlib/inetlib.iml" />
     </modules>
   </component>

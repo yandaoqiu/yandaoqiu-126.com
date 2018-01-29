@@ -1,5 +1,7 @@
 package com.yandaoqiu.net.inter;
 
+import android.content.Context;
+
 import com.yandaoqiu.net.projo.INetResponse;
 import com.yandaoqiu.net.projo.INetTask;
 
@@ -11,6 +13,12 @@ import okhttp3.Interceptor;
 
 public interface INetInter {
 
+    /**
+     *  初始化，建议在Application中调用
+     * @param context
+     * @param listener 网络状态切换
+     */
+    void init(Context context,INetStateChangeListener listener);
     /**
      * 异步请求
      * @param task
