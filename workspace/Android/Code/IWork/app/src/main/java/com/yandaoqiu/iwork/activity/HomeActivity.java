@@ -26,7 +26,7 @@ public class HomeActivity extends BaseFragmentActivity implements HomePageTopBar
 
     private FragmentManager fragmentManager;
     private ViewPager mViewPager;
-
+    private HomePageTopBar mHomePageTopBar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +43,9 @@ public class HomeActivity extends BaseFragmentActivity implements HomePageTopBar
 
 
     private void initTopBar(){
-        HomePageTopBar homePageTopBar = (HomePageTopBar) findViewById(R.id.homepage_bar);
-        homePageTopBar.setHomePageItems(homePageItems);
-        homePageTopBar.setOnSelectedListener(this);
+        mHomePageTopBar = (HomePageTopBar) findViewById(R.id.homepage_bar);
+        mHomePageTopBar.setHomePageItems(homePageItems);
+        mHomePageTopBar.setOnSelectedListener(this);
     }
 
     private void initFragment() throws Exception {
@@ -58,6 +58,22 @@ public class HomeActivity extends BaseFragmentActivity implements HomePageTopBar
         }
 
         mViewPager.setAdapter(new HomePagePageAdapter(fragmentManager,fragments));
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mHomePageTopBar.setSelect(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
 
@@ -87,7 +103,7 @@ public class HomeActivity extends BaseFragmentActivity implements HomePageTopBar
 
 
     @Override
-    public void onSelected(HomePageItem newItem, HomePageItem oldItem) {
-
+    public void onSelected(int newItem, int oldItem) {
+        mViewPager.setCurrentItem(newItem);
     }
 }

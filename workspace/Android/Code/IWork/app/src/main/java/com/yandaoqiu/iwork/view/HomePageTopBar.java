@@ -89,7 +89,7 @@ public class HomePageTopBar extends FrameLayout implements View.OnClickListener{
             int postion = titleItemViews.indexOf(v);
             if(setSelect(postion)){
                 if (listener == null)return;
-                listener.onSelected(homePageItems.get(currentPostion),homePageItems.get(oldPostion));
+                listener.onSelected(currentPostion,oldPostion);
             }
         }
     }
@@ -100,6 +100,7 @@ public class HomePageTopBar extends FrameLayout implements View.OnClickListener{
      * @return false 表示当前不用更新
      */
     public boolean setSelect(int postion){
+        if (postion == currentPostion)return false;
         if (postion >= homePageItems.size() || postion >= titleItemViews.size())return false;
         Button currentView = titleItemViews.get(currentPostion);
         currentView.setTextColor(getResources().getColor(R.color.color_a6a29c));
@@ -116,6 +117,6 @@ public class HomePageTopBar extends FrameLayout implements View.OnClickListener{
 
 
     public interface OnSelectedListener{
-        void onSelected(HomePageItem newItem,HomePageItem oldItem);
+        void onSelected(int newItem,int oldItem);
     }
 }
