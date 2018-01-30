@@ -112,29 +112,29 @@ public class WelcomeActivity extends BaseActivity {
         //TODO 模拟
         {
             HomePageItem homePageItem = new HomePageItem();
-            homePageItem.setTitle("找工作");
+            homePageItem.setTitle("工作");
             homePageItem.setPluginName("iWork_Job.apk");
             homePageItem.setPackageName("com.yandaoqiu.iwork.plugin.job");
 //            homePageItem.setActivityName("HomepageJobActivity");
-            homePageItem.setFragmentName("HomepageJobFragment");
+            homePageItem.setFragmentName("com.yandaoqiu.iwork.plugin.job.homeage.fragment.HomepageJobFragment");
             homePageItems.add(homePageItem);
         }
         {
             HomePageItem homePageItem = new HomePageItem();
-            homePageItem.setTitle("找贤士");
+            homePageItem.setTitle("贤士");
             homePageItem.setPluginName("iWork_Worker.apk");
             homePageItem.setPackageName("com.yandaoqiu.iwork.plugin.worker");
 //            homePageItem.setActivityName("HomepageWorkerActivity");
-            homePageItem.setFragmentName("HomepageWorkerFragment");
+            homePageItem.setFragmentName("com.yandaoqiu.iwork.plugin.worker.homepage.fragment.HomepageWorkerFragment");
             homePageItems.add(homePageItem);
         }
         {
             HomePageItem homePageItem = new HomePageItem();
-            homePageItem.setTitle("拍卖区");
+            homePageItem.setTitle("拍卖");
             homePageItem.setPluginName("iWork_Sale.apk");
             homePageItem.setPackageName("com.yandaoqiu.iwork.plugin.sale");
 //            homePageItem.setActivityName("HomepageSaleActivity");
-            homePageItem.setFragmentName("HomepageSaleFragment");
+            homePageItem.setFragmentName("com.yandaoqiu.iwork.plugin.sale.homepage.fragment.HomepageSaleFragment");
             homePageItems.add(homePageItem);
         }
 
