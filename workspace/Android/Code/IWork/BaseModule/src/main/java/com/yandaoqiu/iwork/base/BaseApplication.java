@@ -47,6 +47,11 @@ public class BaseApplication extends Application implements INetStateChangeListe
             public Context context() {
                 return getApplicationContext();
             }
+
+            @Override
+            public boolean diskCacheisInSDCard() {
+                return true;
+            }
         });
     }
     @Override
