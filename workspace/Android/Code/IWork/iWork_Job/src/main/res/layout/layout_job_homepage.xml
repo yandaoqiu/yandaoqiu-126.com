@@ -2,12 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingRight="5dp"
+    android:paddingLeft="5dp">
 
     <com.bigkoo.convenientbanner.ConvenientBanner
         android:id="@+id/convenientBanner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         app:canLoop="true"
     />
+    <com.bigkoo.convenientbanner.ConvenientBanner
+        android:id="@+id/subConvenientBanner"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/shape_corner"
+        app:canLoop="true"
+        />
 </LinearLayout>

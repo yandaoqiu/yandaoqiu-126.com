@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/transparent"
+    android:layout_gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/sub_banner_titleView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:layout_alignParentLeft="true"
+        />
+
+
+    <ImageView
+        android:id="@+id/sub_banner_icon03"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="15dp"
+        />
+
+    <ImageView
+        android:id="@+id/sub_banner_icon02"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/sub_banner_icon03"
+        android:layout_marginRight="8dp"
+        />
+
+    <ImageView
+        android:id="@+id/sub_banner_icon01"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/sub_banner_icon02"
+        android:layout_marginRight="8dp"/>
+
+
+
+</RelativeLayout>

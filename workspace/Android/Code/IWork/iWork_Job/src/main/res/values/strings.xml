@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">iWork_Job</string>
+
+    <string name="job_symbol_max_value">＞</string>
 </resources>
