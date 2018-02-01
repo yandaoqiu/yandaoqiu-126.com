@@ -30,12 +30,29 @@ import java.util.List;
 public class HomepageJobFragment extends BaseFragment{
 
     private ConvenientBanner mBanner;
+    private View mView;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.layout_job_homepage,null);
+        mBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
+        mView = view;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_job_homepage,container,false);
-        mBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
-        return view;
+
+        return mView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ViewGroup mGroup=(ViewGroup) mView.getParent();
+        if(mGroup!=null){
+           mGroup.removeAllViewsInLayout();
+        }
     }
 
     //状态变化（包含第一次）

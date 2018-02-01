@@ -2,7 +2,7 @@ package com.yandaoqiu.iwork.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
+
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -24,7 +24,6 @@ public class HomeActivity extends BaseFragmentActivity implements HomePageTopBar
     private ArrayList<HomePageItem> homePageItems;
     private ArrayList<BaseFragment> fragments = new ArrayList<>();
 
-    private FragmentManager fragmentManager;
     private ViewPager mViewPager;
     private HomePageTopBar mHomePageTopBar;
     @Override
@@ -50,14 +49,15 @@ public class HomeActivity extends BaseFragmentActivity implements HomePageTopBar
 
     private void initFragment() throws Exception {
         this.mViewPager = (ViewPager) findViewById(R.id.homepage_viewPager);
-        this.fragmentManager = this.getSupportFragmentManager();
+
         for (HomePageItem item : homePageItems){
             String className = item.getFragmentName();
             BaseFragment fragment = (BaseFragment)Class.forName(className).newInstance();
             fragments.add(fragment);
+
         }
 
-        mViewPager.setAdapter(new HomePagePageAdapter(fragmentManager,fragments));
+        mViewPager.setAdapter(new HomePagePageAdapter(getSupportFragmentManager(),fragments));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

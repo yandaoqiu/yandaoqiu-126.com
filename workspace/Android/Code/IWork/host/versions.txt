@@ -8,6 +8,7 @@ com.android.support:support-core-ui:25.3.1 242680
 com.android.support:support-core-utils:25.3.1 94287
 com.android.support:support-fragment:25.3.1 157033
 com.android.support:support-media-compat:25.3.1 283505
+com.android.support:support-v13:25.3.1 46213
 com.android.support:support-v4:25.3.1 1762
 com.android.support:support-vector-drawable:25.3.1 38511
 com.didi.virtualapk:core:0.9.1 86829
