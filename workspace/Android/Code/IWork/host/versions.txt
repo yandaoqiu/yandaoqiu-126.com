@@ -1,5 +1,5 @@
-IWork:BaseModule:unspecified 36047
-IWork:inetlib:unspecified 52469
+IWork:BaseModule:unspecified 57617
+IWork:inetlib:unspecified 52420
 com.android.support:animated-vector-drawable:25.3.1 15556
 com.android.support:appcompat-v7:25.3.1 1026404
 com.android.support:recyclerview-v7:25.3.1 332746

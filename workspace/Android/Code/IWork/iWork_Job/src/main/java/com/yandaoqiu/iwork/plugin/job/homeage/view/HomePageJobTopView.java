@@ -1,11 +1,15 @@
 package com.yandaoqiu.iwork.plugin.job.homeage.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.Image;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,7 +17,10 @@ import android.widget.TextView;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.holder.CBViewHolderCreator;
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.yandaoqiu.iwork.base.utils.PublicUtils;
+import com.yandaoqiu.iwork.base.view.UIImageView;
 import com.yandaoqiu.iwork.plugin.job.R;
+import com.yandaoqiu.iwork.plugin.job.homeage.projo.JobMenyTypeItem;
 import com.yandaoqiu.iwork.plugin.job.homeage.projo.SubBannerRichTextItem;
 import com.yandaoqiu.net.ui.image.IImageLoader;
 import com.yandaoqiu.net.ui.image.projo.ShapeMode;
@@ -26,9 +33,14 @@ import java.util.List;
 
 public class HomePageJobTopView extends LinearLayout{
 
+    private LayoutInflater layoutInflater;
+
     private ConvenientBanner mBanner;
     private ConvenientBanner mSubBanner;
 
+
+
+    private LinearLayout mMenu;
 
     public HomePageJobTopView(Context context) {
         super(context);
@@ -46,12 +58,65 @@ public class HomePageJobTopView extends LinearLayout{
     }
 
     private void init(Context context){
+        layoutInflater = LayoutInflater.from(getContext());
         View view = inflate(context, R.layout.view_job_homepage_job_top,this);
         mBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
         mSubBanner = (ConvenientBanner) view.findViewById(R.id.subConvenientBanner);
         mSubBanner.setManualPageable(true);
+        mMenu  = (LinearLayout) view.findViewById(R.id.subMenuLayout);
     }
 
+
+    public void initMenu(final List<JobMenyTypeItem> menu){
+        if (menu == null)return;
+        Context context = getContext();
+        //计算
+        int width = PublicUtils.getScreenSize(context)[0] - PublicUtils.dip2px(context,10);
+        int itemWidth = width/5;
+
+        for (int i = 0;i<menu.size();i++){
+            JobMenyTypeItem item = menu.get(i);
+            final LinearLayout menuItem = (LinearLayout) layoutInflater.inflate(R.layout.view_menu_item,null);
+            menuItem.setLayoutParams(new LinearLayout.LayoutParams(itemWidth, LinearLayout.LayoutParams.MATCH_PARENT));
+
+            final UIImageView icon = (UIImageView) menuItem.findViewById(R.id.homepage_job_menu_icon);
+            Bitmap bitmap = ((BitmapDrawable)getResources().getDrawable(Integer.parseInt(item.getIamge()))).getBitmap();
+            Bitmap selectedBitmap = ((BitmapDrawable)getResources().getDrawable(Integer.parseInt(item.getSelectedImage()))).getBitmap();
+            icon.setImage(bitmap);
+            icon.setSelectedImage(selectedBitmap);
+
+
+            final TextView textView = (TextView) menuItem.findViewById(R.id.homepage_job_menu_text);
+            textView.setText(item.getName());
+
+            if (item.isSelected()){
+                icon.setSelected(true);
+                textView.setTextColor(getResources().getColor(R.color.color_black));
+            }
+            menuItem.setTag(i);
+
+            mMenu.addView(menuItem);
+
+            menuItem.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (icon.isSelected())return;
+                    icon.setSelected(true);
+                    textView.setTextColor(getResources().getColor(R.color.color_black));
+                    if (listener != null){
+                        listener.onItemClick(menuItem,Integer.parseInt(menuItem.getTag().toString()));
+                    }
+                    for (int i = 0;i < mMenu.getChildCount();i++){
+                        LinearLayout l  = (LinearLayout) mMenu.getChildAt(i);
+                        if (l == view)continue;
+                        UIImageView l_icon = (UIImageView) l.findViewById(R.id.homepage_job_menu_icon);
+                        l_icon.setSelected(false);
+                        ((TextView) l.findViewById(R.id.homepage_job_menu_text)).setTextColor(getResources().getColor(R.color.color_bfbfbf));
+                    }
+                }
+            });
+        }
+    }
 
 
     public void initData(List<String> netImages,List<SubBannerRichTextItem> richTextItemList){

@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.yandaoqiu.iwork.base.adapter.wapper.HeaderAndFooterWrapper;
 import com.yandaoqiu.iwork.base.fragment.BaseFragment;
 import com.yandaoqiu.iwork.plugin.job.R;
+import com.yandaoqiu.iwork.plugin.job.homeage.adapter.HomepageJobAdapter;
+import com.yandaoqiu.iwork.plugin.job.homeage.projo.JobMenyTypeItem;
 import com.yandaoqiu.iwork.plugin.job.homeage.projo.SubBannerRichTextItem;
 import com.yandaoqiu.iwork.plugin.job.homeage.view.HomePageJobTopView;
 
@@ -26,17 +29,27 @@ import java.util.List;
 
 public class HomepageJobFragment extends BaseFragment implements HomePageJobTopView.OnItemClickListener{
 
-
-
-
     private RecyclerView mRecyclerView;
     private HomePageJobTopView mHomePageJobTopView;
+
+
+    private HeaderAndFooterWrapper mHeaderAndFooterWrapper;
+    private HomepageJobAdapter mHomepageJobAdapter;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mRecyclerView = (RecyclerView) getActivity().getLayoutInflater().inflate(R.layout.layout_job_homepage,null);
         GridLayoutManager manager = new GridLayoutManager(getContext(),2);
         mRecyclerView.setLayoutManager(manager);
+        mHomepageJobAdapter = new HomepageJobAdapter();
+        mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(mHomepageJobAdapter);
+
+        mHomePageJobTopView = new HomePageJobTopView(getContext());
+
+        mHeaderAndFooterWrapper.addHeaderView(mHomePageJobTopView);
+
+        mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
     }
 
     @Nullable
@@ -72,7 +85,7 @@ public class HomepageJobFragment extends BaseFragment implements HomePageJobTopV
     @Override
     protected void onFragmentFirstVisible() {
         Log.d("HomePageJobFragment","onFragmentFirstVisible");
-       mHomePageJobTopView.setListener(this);
+        mHomePageJobTopView.setListener(this);
         loadBanner();
     }
 
@@ -120,7 +133,53 @@ public class HomepageJobFragment extends BaseFragment implements HomePageJobTopV
             item.setImages(itemImages);
             richTextItemList.add(item);
         }
+
+
+
+        ArrayList<JobMenyTypeItem> meun = new ArrayList<>();
+        {
+            JobMenyTypeItem item = new JobMenyTypeItem();
+            item.setSelected(true);
+            item.setName("数码");
+            item.setIamge(R.drawable.dianzi+"");
+            item.setSelectedImage(R.drawable.dianzhi_selected+"");
+            meun.add(item);
+        }
+
+        {
+            JobMenyTypeItem item = new JobMenyTypeItem();
+            item.setName("维修");
+            item.setIamge(R.drawable.weixiu+"");
+            item.setSelectedImage(R.drawable.weixiu_selected+"");
+            meun.add(item);
+        }
+
+        {
+            JobMenyTypeItem item = new JobMenyTypeItem();
+            item.setName("安装");
+            item.setIamge(R.drawable.anzhuang+"");
+            item.setSelectedImage(R.drawable.anzhuang_selected+"");
+            meun.add(item);
+        }
+
+        {
+            JobMenyTypeItem item = new JobMenyTypeItem();
+            item.setName("跑腿");
+            item.setIamge(R.drawable.paotui+"");
+            item.setSelectedImage(R.drawable.paotui_selected+"");
+            meun.add(item);
+        }
+
+        {
+            JobMenyTypeItem item = new JobMenyTypeItem();
+            item.setName("其它");
+            item.setIamge(R.drawable.other +"");
+            item.setSelectedImage(R.drawable.other_selected +"");
+            meun.add(item);
+        }
+
         mHomePageJobTopView.initData(netImages,richTextItemList);
+        mHomePageJobTopView.initMenu(meun);
     }
 
     @Override

@@ -11,4 +11,6 @@
     <color name="color_99ffffff">#99ffffff</color>
     <color name="color_a6a29c">#a6a29c</color>
     <color name="transparent">#00000000</color>
+    <color name="color_bfbfbf">#bfbfbf</color>
+    <color name="color_black">#000000</color>
 </resources>

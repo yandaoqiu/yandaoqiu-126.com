@@ -4,10 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 /**
- * Created by yandaoqiu on 2018/2/2.
+ * Created by 15032065 on 18/2/11.
  */
 
-public class HomePageJobRVAdapter extends RecyclerView.Adapter {
+public class HomepageJobAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;

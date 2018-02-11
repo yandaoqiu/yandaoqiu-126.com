@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    >
+
+    <com.yandaoqiu.iwork.base.view.UIImageView
+        android:id="@+id/homepage_job_menu_icon"
+        android:gravity="center"
+        android:layout_width="28dp"
+        android:layout_height="28dp" />
+
+    <TextView
+        android:id="@+id/homepage_job_menu_text"
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/color_bfbfbf"
+        android:textSize="10sp"
+        />
+</LinearLayout>
