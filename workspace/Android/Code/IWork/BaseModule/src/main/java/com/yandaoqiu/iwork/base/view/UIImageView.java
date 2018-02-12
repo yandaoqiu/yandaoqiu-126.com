@@ -43,6 +43,7 @@ public class UIImageView extends ImageView {
 
     @Override
     public void setSelected(boolean selected) {
+        if (isSelected() == selected)return;
         if (selected){
             setImageBitmap(selectedBitmp);
         }else {

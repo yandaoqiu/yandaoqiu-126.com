@@ -1,8 +1,11 @@
 package com.yandaoqiu.iwork.plugin.job.homeage.fragment;
 
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.yandaoqiu.iwork.base.adapter.wapper.HeaderAndFooterWrapper;
 import com.yandaoqiu.iwork.base.fragment.BaseFragment;
+import com.yandaoqiu.iwork.base.view.RefreshRecyclerView;
 import com.yandaoqiu.iwork.plugin.job.R;
 import com.yandaoqiu.iwork.plugin.job.homeage.adapter.HomepageJobAdapter;
 import com.yandaoqiu.iwork.plugin.job.homeage.projo.JobMenyTypeItem;
@@ -29,7 +33,7 @@ import java.util.List;
 
 public class HomepageJobFragment extends BaseFragment implements HomePageJobTopView.OnItemClickListener{
 
-    private RecyclerView mRecyclerView;
+    private RefreshRecyclerView mRecyclerView;
     private HomePageJobTopView mHomePageJobTopView;
 
 
@@ -39,17 +43,23 @@ public class HomepageJobFragment extends BaseFragment implements HomePageJobTopV
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecyclerView = (RecyclerView) getActivity().getLayoutInflater().inflate(R.layout.layout_job_homepage,null);
+        mRecyclerView = (RefreshRecyclerView) getActivity().getLayoutInflater().inflate(R.layout.layout_job_homepage,null);
         GridLayoutManager manager = new GridLayoutManager(getContext(),2);
         mRecyclerView.setLayoutManager(manager);
-        mHomepageJobAdapter = new HomepageJobAdapter();
+        mRecyclerView.addItemDecoration(new GridSpacingItemDecoration(2,30,true));
+        mHomepageJobAdapter = new HomepageJobAdapter(getContext());
         mHeaderAndFooterWrapper = new HeaderAndFooterWrapper(mHomepageJobAdapter);
 
+
+        mHeaderAndFooterWrapper.addHeaderView(mRecyclerView.getHeaderView());
+        mHeaderAndFooterWrapper.addFootView(mRecyclerView.getFooterView());
+
         mHomePageJobTopView = new HomePageJobTopView(getContext());
-
         mHeaderAndFooterWrapper.addHeaderView(mHomePageJobTopView);
-
         mRecyclerView.setAdapter(mHeaderAndFooterWrapper);
+
+
+        mRecyclerView.setOnRefreshListener(new OnRecyclerRefreshListener());
     }
 
     @Nullable
@@ -90,6 +100,9 @@ public class HomepageJobFragment extends BaseFragment implements HomePageJobTopV
     }
 
 
+    /**
+     * 模拟数据
+     */
     public void loadBanner(){
         //去服务器下载数据,滚轮展示的内容
         //模拟
@@ -185,5 +198,71 @@ public class HomepageJobFragment extends BaseFragment implements HomePageJobTopV
     @Override
     public void onItemClick(View view, int position) {
         Log.d("HomepageJobFragment","onItemClick "+ view.getClass().getName()+" "+ position);
+    }
+
+
+    private class OnRecyclerRefreshListener implements RefreshRecyclerView.OnRefreshListener {
+        @Override
+        public void onPullDownRefresh() {
+//           执行下拉刷新操作，一般是联网更新数据
+
+            mRecyclerView.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                mRecyclerView.onFinishRefresh(true);
+                }
+            },1000);
+
+        }
+
+        @Override
+        public void onLoadingMore() {
+//            执行上拉加载操作，一般是联网请求更多分页数据
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                }
+            }).start();
+        }
+    }
+
+
+
+    public class GridSpacingItemDecoration extends RecyclerView.ItemDecoration {
+
+        private int spanCount;
+        private int spacing;
+        private boolean includeEdge;
+
+        public GridSpacingItemDecoration(int spanCount, int spacing, boolean includeEdge) {
+            this.spanCount = spanCount;
+            this.spacing = spacing;
+            this.includeEdge = includeEdge;
+        }
+
+        @Override
+        public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+            Log.d("getItemOffsets",view.toString());
+            if (view == mHomePageJobTopView)return;
+            int position = parent.getChildAdapterPosition(view); // item position
+            int column = position % spanCount; // item column
+
+            if (includeEdge) {
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
+
+                if (position < spanCount) { // top edge
+                    outRect.top = spacing;
+                }
+                outRect.bottom = spacing; // item bottom
+            } else {
+                outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                if (position >= spanCount) {
+                    outRect.top = spacing; // item top
+                }
+            }
+        }
     }
 }

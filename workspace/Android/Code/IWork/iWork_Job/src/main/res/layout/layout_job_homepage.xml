@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/homepage_job_recyleview"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingRight="5dp"
-    android:paddingLeft="5dp"
-    >
+
+<com.yandaoqiu.iwork.base.view.RefreshRecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/homepage_job_recyleview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="5dp"
+        android:paddingLeft="5dp"
+        >
+
+</com.yandaoqiu.iwork.base.view.RefreshRecyclerView>
 
 
-
-</android.support.v7.widget.RecyclerView>
 
 
 

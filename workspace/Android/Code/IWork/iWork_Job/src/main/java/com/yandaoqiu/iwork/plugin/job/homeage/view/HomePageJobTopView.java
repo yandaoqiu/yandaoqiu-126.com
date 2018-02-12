@@ -2,6 +2,7 @@ package com.yandaoqiu.iwork.plugin.job.homeage.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.Image;
 import android.support.annotation.Nullable;
