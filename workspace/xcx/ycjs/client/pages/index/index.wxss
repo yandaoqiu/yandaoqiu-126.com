@@ -1,0 +1,22 @@
+.block {
+    border: 8px solid #71b471;
+    margin: 20rpx 20rpx;
+    padding: 10rpx;
+    background-color: #fff;
+    border-radius: 20rpx;
+    text-align: center;
+}
+.top {
+    width: 100rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    background-color: #fff;
+    position: fixed;
+    bottom: 40rpx;
+    right: 20rpx;
+    text-align: center;
+    font-size: 50rpx;
+    opacity: .8;
+    border-radius: 50%;
+    border: 1px solid #fff;  
+}
