@@ -7,7 +7,7 @@ var config = require('./config');
 
 App({
     path: {
-      res: "https://qcloudtest-1256096694.cos.ap-guangzhou.myqcloud.com/",
+      res: "https://res.bestcake.com/smallexe/index/",
       //www: "https://mcstj.bestcake.com/"
       www: "http://localhost:9419/"
     },

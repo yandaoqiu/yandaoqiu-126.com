@@ -38,11 +38,14 @@ var doLogin={
 Page({
   data: {
     loginUrl: config.service.loginUrl,
-    path:base.path.res+"smallexe/index/",
-    motto: '酒水饮料批发',
-    userInfo: {},
-    array: ['盐城','上海', '北京', '杭州', '宁波'],
-    index: 0
+    path:base.path.res,
+    // motto: '酒水饮料批发',
+    // userInfo: {},
+    // array: ['盐城','上海', '北京', '杭州', '宁波'],
+    index: 0,
+   salelist:[],
+   toView: 'sale_id',
+   scrollTop: 100
   },
   goCake: function (e) {
     var brand = e.currentTarget.dataset.brand;
@@ -111,9 +114,11 @@ Page({
       url: config.service.saleList,
       login: false,
       success: (result) => {
-        this.saleProductList = result.data.data;
+       var saleProductList = result.data.data;
         showSuccess('加载成功');
-        console.log('获取数据', result);
+        
+        this.setData({ saleProductList });
+        console.log('获取数据', saleProductList);
       }, 
       fail:(error) =>{
         showModel('加载失败', error);
