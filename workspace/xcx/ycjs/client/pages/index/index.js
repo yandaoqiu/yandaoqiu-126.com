@@ -114,10 +114,14 @@ Page({
       url: config.service.saleList,
       login: false,
       success: (result) => {
+     
        var saleProductList = result.data.data;
+      //  for (var i = 0; i < saleProductList.length; i++) {
+      //    l.push(saleProductList[i])
+      //    } 
+       this.setData({ salelist: saleProductList});
         showSuccess('加载成功');
-        
-        this.setData({ saleProductList });
+     
         console.log('获取数据', saleProductList);
       }, 
       fail:(error) =>{

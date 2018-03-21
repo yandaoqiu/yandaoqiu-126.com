@@ -1,8 +1,8 @@
 .page-wrap {
     display: flex;
     flex-direction: column;
-    background: #ebebeb;
     position: absolute;
+    background: #ebebeb;
     top: 0;
     bottom: 0;
     left: 0;
@@ -13,4 +13,12 @@
     flex: 1;
     text-align: center;
     overflow-y:auto;
+}.sale_image{
+  border-radius: 15px;
+  margin-top:10px;
+  width: 95%;
+}.content{
+  width: 95%;
+  margin-top:5px;
+  margin-bottom: 10px;
 }

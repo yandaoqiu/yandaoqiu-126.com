@@ -9,18 +9,11 @@ async function get(ctx, next) {
   var res = await mysql("cSaleList").where({ isShow: 1 })
   for (var index in res){
     var item = res[index]
-    let salepic = item.sale_pic
-    var pic = await mysql("cPic").where({ pic_id: '201803191100' }).first()
+    var salepic = item.sale_pic
+    var pic = await mysql.select().from('cPic').where('pic_id',  salepic).first()
     item.sale_pic = pic.address
   }
   ctx.state.data = res
-  // res.forEach(function (item, index) {
-  //   //查询图片
-  //   let salepic = item.sale_pic
-  //   var pic =  await mysql("cPic").where({pic_id:'201803191100'}).first()
-  //   item.sale_pic = pic.address
-  //   });  
-  // ctx.state.data = res
 }
 
 async function post(ctx, next) {

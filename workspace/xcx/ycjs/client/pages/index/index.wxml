@@ -1,17 +1,10 @@
-<scroll-view scroll-y="true" style="height: 100%">
-<view wx:for="{{salelist}}" wx:for-item="saleitem" wx:key="id" id="{{saleitem.sale_id}}">
-            <!-- <view class="sale_view">
-                <image class="sale_image" src="{{saleitem.sale_pic}}" mode="aspectFill" ></image>
-                <view class="text">
-                    <view class="content">{{saleitem.sale_desc+''}}</view>
-                </view>
-            </view> -->
-            <view style="background: red; width: 100px; height: 100px" ></view>
-        </view>
-    <!-- <view style="background: red; width: 100px; height: 100px" ></view>
-    <view style="background: green; width: 100px; height: 100px"></view>
-    <view style="background: blue; width: 100px; height: 100px"></view>
-    <view style="background: yellow; width: 100px; height: 100px"></view>
-    <view style="background: red; width: 100px; height: 100px"></view> -->
+<view class="page-wrap"> 
+<scroll-view class="saleproduct-container" scroll-y="true" style="height: 100%">
+     <view wx:for="{{salelist}}" wx:for-item="saleitem" wx:key="id" id="{{saleitem.sale_id}}">
+        <image class="sale_image" src="{{saleitem.sale_pic}}" mode="widthFix"  ></image>
+       <view class="content" style='color:#424242'>{{saleitem.sale_desc+''}}</view> 
+       
+    </view> 
     
 </scroll-view>
+</view>
