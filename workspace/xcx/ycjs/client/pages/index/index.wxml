@@ -1,7 +1,7 @@
 <view class="page-wrap"> 
 <scroll-view class="saleproduct-container" scroll-y="true" style="height: 100%">
      <view wx:for="{{salelist}}" wx:for-item="saleitem" wx:key="id" id="{{saleitem.sale_id}}">
-        <image class="sale_image" src="{{saleitem.sale_pic}}" mode="widthFix"  ></image>
+        <image class="sale_image" src='{{saleitem.sale_pic==""?"../../../icon/product_def.jpg":saleitem.sale_pic}}' mode="widthFix"></image>
        <view class="content" style='color:#424242'>{{saleitem.sale_desc+''}}</view> 
        
     </view> 

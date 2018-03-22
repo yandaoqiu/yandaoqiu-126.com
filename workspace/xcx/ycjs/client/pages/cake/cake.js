@@ -43,7 +43,7 @@ Page({
         // if (_dic) {
         //     _this.setlist(_dic);
         // } else {
-        base.get({ c: "Product", m: "GetAllProduct", City: "上海" }, function (d) {
+        base.get({ c: "Product", m: "GetAllProduct", City: "上海"       }, function (d) {
             var data = d.data;
             if (data.Status == "ok") {
                 base.cake.setCache(data.Tag);

@@ -1,6 +1,8 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/market/market",
+
         "pages/chat/chat",
         "pages/success/success",
         "pages/payment/payment",
@@ -35,7 +37,7 @@
           "selectedIconPath": "icon/home-2.png"
         },
         {
-          "pagePath": "pages/cake/cake",
+          "pagePath": "pages/market/market",
           "text": "酒水超市",
           "iconPath": "icon/jiushui-1.png",
           "selectedIconPath": "icon/jiushui-2.png"

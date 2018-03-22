@@ -108,8 +108,13 @@ Page({
         if (!base.user.islogin()) {
             wx.redirectTo({
                 // url: '../login/login'
-                url: '../phone/phone'
+                // url: '../phone/phone'
             });
+            base.modal({
+              title: '请先登录...',
+              showCancel: false
+            });
+            
         }
         else {
             this.setData({

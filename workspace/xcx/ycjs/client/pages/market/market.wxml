@@ -1,0 +1,6 @@
+<view class="tab">
+  <view class="{{tab==0?'tab-on':'tab-out'}}" style="border-right:solid 1px #576b95" data-index="0" catchtap="changeTab">白酒</view>
+  <view class="{{tab==1?'tab-on':'tab-out'}}" data-index="1" catchtap="changeTab" style="border-right:solid 1px #576b95">红酒</view>
+  <view class="{{tab==2?'tab-on':'tab-out'}}" style="border-right:solid 1px #576b95" data-index="2" catchtap="changeTab">饮料</view>
+  <view class="{{tab==3?'tab-on':'tab-out'}}" data-index="3" catchtap="changeTab">其它</view>
+</view>
