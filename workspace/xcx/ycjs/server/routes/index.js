@@ -37,4 +37,7 @@ router.post('/message', controllers.message.post)
 //-- 业务接口-- //
 router.get('/salelist', controllers.salelist.get)
 router.post('/salelist', controllers.salelist.post)
+
+router.get('/salelist', controllers.salelist.get)
+router.post('/salelist', controllers.salelist.post)
 module.exports = router
