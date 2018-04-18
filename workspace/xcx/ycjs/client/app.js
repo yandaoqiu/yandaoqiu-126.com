@@ -137,22 +137,22 @@ App({
     market:{
       tab: null,
       key: "market",
-      setCache: function (obj) {
-        wx.setStorageSync(this.key, obj);
+      setCache: function (index,obj) {
+        wx.setStorageSync(this.key + index, obj);
         var vs = getApp().version;
         wx.setStorageSync(vs.key, vs.current);//设置当前版本号
       },
-      getCache: function () {
-        return wx.getStorageSync(this.key);
+      getCache: function (index) {
+        return wx.getStorageSync(this.key + index);
       },
-      getByName: function (nm) {
-        var p = null;
-        var dic = wx.getStorageSync(this.key) || {};
-        if (nm in dic) {
-          p = dic[nm];
-        }
-        return p;
-      }
+      // getByName: function (nm) {
+      //   var p = null;
+      //   var dic = wx.getStorageSync(this.key) || {};
+      //   if (nm in dic) {
+      //     p = dic[nm];
+      //   }
+      //   return p;
+      // }
     },
 
 

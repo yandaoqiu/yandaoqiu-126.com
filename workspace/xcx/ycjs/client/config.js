@@ -22,8 +22,12 @@ var config = {
         // 上传图片接口
         uploadUrl: `${host}/weapp/upload`,
 
+
+
         //获取促销活动
         saleList: `${host}/weapp/salelist`,
+        //获取超市商品
+        productList: `${host}/weapp/productlist`,
     }
 };
 

@@ -38,6 +38,6 @@ router.post('/message', controllers.message.post)
 router.get('/salelist', controllers.salelist.get)
 router.post('/salelist', controllers.salelist.post)
 
-router.get('/salelist', controllers.salelist.get)
-router.post('/salelist', controllers.salelist.post)
+router.get('/productlist', controllers.product.get)
+router.post('/productlist', controllers.product.post)
 module.exports = router

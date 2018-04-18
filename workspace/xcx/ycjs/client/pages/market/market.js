@@ -1,4 +1,37 @@
 // pages/market/index.js
+//获取应用实例
+var base = getApp();
+// 引入 QCloud 小程序增强 SDK
+var qcloud = require('../../vendor/wafer2-client-sdk/index');
+
+// 引入配置
+var config = require('../../config');
+// 显示繁忙提示
+var showBusy = text => wx.showToast({
+  title: text,
+  icon: 'loading',
+  duration: 10000
+});
+
+// 显示成功提示
+var showSuccess = text => wx.showToast({
+  title: text,
+  icon: 'success'
+});
+//消失
+var dismissBusy=()=>{
+  wx.hideToast();
+};
+// 显示失败提示
+var showModel = (title, content) => {
+  wx.hideToast();
+
+  wx.showModal({
+    title,
+    content: JSON.stringify(content),
+    showCancel: false
+  });
+};
 Page({
 
   /**
@@ -6,6 +39,7 @@ Page({
    */
   data: {
     tab: 0,
+    productlist: [],
   },
   /**
    * 点击切换
@@ -18,7 +52,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var _dic = base.market.getCache(1);
+    if(_dic){
 
+    }else{
+      //获取type = 1的数据
+      this.showProductList(1);
+    }
+  },
+  showProductList(index) {
+    showBusy('请稍等');
+    qcloud.request({
+      url: config.service.productList,
+      login: false,
+      success: (result) => {
+        var pList = result.data.data;
+        this.setData({ productlist: pList });
+        base.market.setCache(1, pList);
+        dismissBusy();
+        console.log('获取数据', pList);
+      },
+      fail: (error) => {
+        showModel('加载失败', error);
+        console.log('获取加载失败', error);
+      }
+    });
   },
 
   /**
