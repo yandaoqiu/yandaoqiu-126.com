@@ -60,10 +60,17 @@ Page({
       this.showProductList(1);
     }
   },
-  showProductList(index) {
+  showProductList(i) {
     showBusy('请稍等');
     qcloud.request({
       url: config.service.productList,
+      data:{
+        index: i,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      method: 'post',
       login: false,
       success: (result) => {
         var pList = result.data.data;
