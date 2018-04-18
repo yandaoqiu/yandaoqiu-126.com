@@ -129,6 +129,36 @@ App({
         return p;
       }
     },
+
+/*---------------------------------------------------------------------------- */
+    /**
+     * 超市
+     */
+    market:{
+      tab: null,
+      key: "market",
+      setCache: function (obj) {
+        wx.setStorageSync(this.key, obj);
+        var vs = getApp().version;
+        wx.setStorageSync(vs.key, vs.current);//设置当前版本号
+      },
+      getCache: function () {
+        return wx.getStorageSync(this.key);
+      },
+      getByName: function (nm) {
+        var p = null;
+        var dic = wx.getStorageSync(this.key) || {};
+        if (nm in dic) {
+          p = dic[nm];
+        }
+        return p;
+      }
+    },
+
+
+
+
+
     /**
      * 小程序初始化时执行，我们初始化客户端的登录地址，以支持所有的会话操作
      */
