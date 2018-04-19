@@ -7,8 +7,7 @@
 </view>
 <view class="tab-layer"></view>
 <scroll-view class="product-container" scroll-y="true" style="height: 100%">
-    <view  class="item itemjz" wx:for="{{productlist}}" wx:for-item="productitem" wx:key="id" id="{{productitem.p_id}}">
-        <!-- <image class="product_image" src='{{productitem.pic_id==""?"../../../icon/product_def.jpg":productitem.pic_id}}' mode="widthFix"></image> -->
+    <view  class="item itemjz" wx:for="{{productlist}}" wx:for-item="productitem" wx:key="id" id="{{productitem.p_id}}" data-product="{{productitem}}" bindtap="goDetail">
       <view class="img">
         <image src='{{productitem.pic_id==""?"../../../icon/product_def.jpg":productitem.pic_id}}'  mode="aspectFit" />
        </view>
@@ -17,7 +16,6 @@
           <view class="des" >{{productitem.p_desc}}</view>
          <view class="sub">￥<text>{{productitem.p_sale == '1' ? productitem.price:productitem.price+" ("+productitem.p_sale*10+"折)"}}</text>
             </view>
-           
       </view>
     </view> 
 </scroll-view>

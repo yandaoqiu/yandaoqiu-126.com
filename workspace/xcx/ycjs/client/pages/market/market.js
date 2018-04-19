@@ -49,6 +49,15 @@ Page({
     //获取数据
     this.loadData(++d);
   },
+  goDetail: function (e) {
+    var product= e.currentTarget.dataset.product;
+
+    if (product) {
+      wx.navigateTo({
+        url: '../cakeDetail/cakeDetail?product=' + product
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
