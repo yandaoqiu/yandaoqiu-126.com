@@ -16,12 +16,16 @@ async function get(ctx, next) {
 }
 
 async function post(ctx, next) {
-  var res = await mysql("cProduct").where({ isShow: 1, p_type: ctx.req.body.index }).orderBy('pindex', 'esc')
+  var res = await mysql("cProduct").where({ isShow: 1, p_type:ctx.request.body.index}).orderBy('pindex', 'esc')
   for (var index in res) {
     var item = res[index]
-    var salepic = item.sale_pic
-    var pic = await mysql.select().from('cPic').where('pic_id', salepic).first()
-    item.sale_pic = pic.address
+    var productpic = item.pic_id
+    var pic = await mysql.select().from('cPic').where('pic_id', productpic).first()
+    item.pic_id = pic.address
+    //算折扣
+    if (item.p_sale != '1'){
+      item.price = Math.floor(item.price * item.p_sale)
+    }
   }
   ctx.state.data = res
 }

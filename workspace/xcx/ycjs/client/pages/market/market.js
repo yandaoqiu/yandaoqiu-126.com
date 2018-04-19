@@ -33,7 +33,6 @@ var showModel = (title, content) => {
   });
 };
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -47,19 +46,28 @@ Page({
   changeTab: function (e) {
     var d = e.currentTarget.dataset.index;
     this.setData({ tab: d });
+    //获取数据
+    this.loadData(++d);
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var _dic = base.market.getCache(1);
-    if(_dic){
+    this.loadData(1);
+  },
 
-    }else{
+  loadData(i){
+    var array = base.market.getCache(i);
+    if (array && array.length > 0) {
+      this.setData({ productlist: array });
+      //TOOD 刷新页面
+      console.log('缓存数据', array);
+    } else {
       //获取type = 1的数据
-      this.showProductList(1);
+      this.showProductList(i);
     }
   },
+  //请求商品 按照类型
   showProductList(i) {
     showBusy('请稍等');
     qcloud.request({
@@ -75,11 +83,14 @@ Page({
       success: (result) => {
         var pList = result.data.data;
         this.setData({ productlist: pList });
-        base.market.setCache(1, pList);
+        base.market.setCache(i, pList);
         dismissBusy();
+        //TOOD 刷新页面
+
         console.log('获取数据', pList);
       },
       fail: (error) => {
+        dismissBusy();
         showModel('加载失败', error);
         console.log('获取加载失败', error);
       }

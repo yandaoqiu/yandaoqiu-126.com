@@ -139,8 +139,8 @@ App({
       key: "market",
       setCache: function (index,obj) {
         wx.setStorageSync(this.key + index, obj);
-        var vs = getApp().version;
-        wx.setStorageSync(vs.key, vs.current);//设置当前版本号
+        // var vs = getApp().version;
+        // wx.setStorageSync(vs.key, vs.current);//设置当前版本号
       },
       getCache: function (index) {
         return wx.getStorageSync(this.key + index);

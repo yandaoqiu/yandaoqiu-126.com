@@ -43,7 +43,7 @@
           "selectedIconPath": "icon/jiushui-2.png"
         },
         {
-          "pagePath": "pages/cart/cart",
+          "pagePath": "pages/cake/cake",
           "text": "购物车",
           "iconPath": "icon/cart-1.png",
           "selectedIconPath": "icon/cart-2.png"
