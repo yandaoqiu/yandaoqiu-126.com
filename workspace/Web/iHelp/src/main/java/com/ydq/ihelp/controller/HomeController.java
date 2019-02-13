@@ -43,7 +43,7 @@ public class HomeController {
 //		mJobService.getItemDetail(null);
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "login";
 	}
 	
 }
